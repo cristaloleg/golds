@@ -2,7 +2,13 @@
 
 TIMESTAMP=$(shell date +"%Y-%m-%d_%H-%M-%S")
 
-all: test install
+all: install build test
+
+install:
+	go get github.com/golang/lint/golint
+	go get github.com/alecthomas/gometalinter
+	go get github.com/mattn/goveralls
+	go get golang.org/x/tools/cmd/cover
 
 build:
 	go build .
@@ -11,10 +17,15 @@ bench:
 	go test -bench=. -benchmem
 
 test:
-	go test -cover ./...
+	go test -v -cover ./...
 
 fmt:
 	gofmt -l -w *.go
+
+lint:
+	golint ./...
+	go vet ./...
+	# gometalinter -enable-all --concurrency=4 .
 
 race:
 	go test -race ./...
