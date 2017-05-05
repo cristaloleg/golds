@@ -24,10 +24,6 @@ fmt:
 lint:
 	golint ./...
 	go vet ./...
-<<<<<<< HEAD
-	gometalinter -enable-all --concurrency=4 .
-=======
->>>>>>> 053e0e5f5d7596762562e7f1ba9267563d8dd124
 
 race:
 	go test -race ./...
