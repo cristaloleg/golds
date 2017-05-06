@@ -35,6 +35,7 @@ func (h *BinaryHeap) Pop() (value interface{}, ok bool) {
 		return nil, false
 	}
 	value, h.data[0] = h.data[0], h.data[size-1]
+	h.data = h.data[:size-1]
 	h.siftDown(0)
 	return value, true
 }
