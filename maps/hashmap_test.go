@@ -1,8 +1,13 @@
 package maps
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/cristaloleg/golds"
+)
 
 var _ Map = (*HashMap)(nil)
+var _ golds.Container = (*HashMap)(nil)
 
 func TestHashMap(t *testing.T) {
 	m := NewHashMap()
