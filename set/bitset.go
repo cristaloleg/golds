@@ -39,14 +39,6 @@ func (b *BitSet) Count() int {
 	return res
 }
 
-func (b *BitSet) Resize(i int) {
-	if i > len(b.data) {
-
-	} else {
-		b.data = b.data[:i]
-	}
-}
-
 func (b *BitSet) getIndex(i int) (int, int) {
 	return i / 8, i % 8
 }
@@ -60,5 +52,9 @@ func (b *BitSet) getMaskInv(i int) uint64 {
 }
 
 func (b *BitSet) getBits(i uint64) int {
-	return 0
+	res := 0
+	for ; i != 0; res++ {
+		i &= i - 1
+	}
+	return res
 }
