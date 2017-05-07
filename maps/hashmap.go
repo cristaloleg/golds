@@ -18,6 +18,16 @@ func (h *HashMap) Size() int {
 	return len(h.data)
 }
 
+// IsEmpty returns true if HashMap is empty
+func (h *HashMap) IsEmpty() bool {
+	return len(h.data) == 0
+}
+
+// Clear removes all elements from the HashMap
+func (h *HashMap) Clear() {
+	h.data = make(map[interface{}]interface{})
+}
+
 // Put put key-value pair in HashMap
 func (h *HashMap) Put(key interface{}, value interface{}) {
 	h.data[key] = value
