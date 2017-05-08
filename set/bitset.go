@@ -14,6 +14,7 @@ func NewBitSet(size int) *BitSet {
 func (b *BitSet) Set(i int) {
 	x, y := b.getIndex(i)
 	b.data[x] |= b.getMask(y)
+	// f.bits[i>>shift] |= 1 << (i & (word - 1))
 }
 
 func (b *BitSet) Unset(i int) {
@@ -24,6 +25,7 @@ func (b *BitSet) Unset(i int) {
 func (b *BitSet) Get(i int) bool {
 	x, y := b.getIndex(i)
 	return (b.data[x] & b.getMask(y)) != 0
+	//return ((f.bits[i>>shift] >> (i & (word - 1))) & 1) != 0
 }
 
 func (b *BitSet) Toggle(i int) {
