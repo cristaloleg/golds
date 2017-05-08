@@ -62,14 +62,15 @@ func (m *MultiHashMap) Del(key interface{}) {
 // DelKeyValue XXX
 func (m *MultiHashMap) DelKeyValue(key interface{}, value interface{}) {
 	values, ok := m.data[key]
-	if ok {
-		for i, val := range values {
-			if val == value {
-				values = append(values[:i], values[i+1:]...)
-			}
-		}
-		m.data[key] = values
+	if !ok {
+		return
 	}
+	for i, val := range values {
+		if val == value {
+			values = append(values[:i], values[i+1:]...)
+		}
+	}
+	m.data[key] = values
 }
 
 // Keys XXX
