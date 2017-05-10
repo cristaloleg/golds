@@ -54,11 +54,11 @@ func (h *BinaryHeap) Values() []interface{} {
 }
 
 func (h *BinaryHeap) siftDown(i int) {
-	for 2*i+1 < len(h.data) {
-		l := 2*i + 1
-		r := 2*i + 2
+	size := len(h.data)
+	for 2*i+1 < size {
+		l, r := 2*i+1, 2*i+2
 		j := l
-		if r < len(h.data) && h.comp(h.data[r], h.data[l]) {
+		if r < size && h.comp(h.data[r], h.data[l]) {
 			j = r
 		}
 		if h.comp(h.data[i], h.data[j]) {
