@@ -14,7 +14,7 @@ build:
 	go build ${PKG}
 
 bench:
-	go test -bench=. -benchmem
+	go test -bench=. -benchmem ${PKG}
 
 test:
 	go test -v -cover ${PKG}
@@ -30,7 +30,7 @@ race:
 	go test -race ${PKG}
 
 cpuprof:
-	go test -cpuprofile cpu-${TIMESTAMP}.prof
+	go test -cpuprofile cpu-${TIMESTAMP}.prof ${PKG}
 
 memprof:
-	go test -memprofile mem-${TIMESTAMP}.prof
+	go test -memprofile mem-${TIMESTAMP}.prof ${PKG}
