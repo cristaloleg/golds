@@ -1,13 +1,13 @@
 package misc
 
-// UnionFind XXX
+// UnionFind disjoint set structure
 type UnionFind struct {
 	count  int
 	parent []int
 	rank   []int
 }
 
-// NewUnionFind XXX
+// NewUnionFind returns pointer to UnionFind
 func NewUnionFind(size int) *UnionFind {
 	u := &UnionFind{
 		count:  size,
@@ -20,12 +20,12 @@ func NewUnionFind(size int) *UnionFind {
 	return u
 }
 
-// Count XXX
+// Count returns number of independent sets
 func (u *UnionFind) Count() int {
 	return u.count
 }
 
-// Union XXX
+// Union unites two sets
 func (u *UnionFind) Union(x, y int) {
 	x, y = u.find(x), u.find(y)
 	if x == y {
@@ -41,13 +41,16 @@ func (u *UnionFind) Union(x, y int) {
 	u.count--
 }
 
-// IsUnited XXX
+// IsUnited returns true if two sets are connected
 func (u *UnionFind) IsUnited(x, y int) bool {
 	return u.find(x) == u.find(y)
 }
+
 func (u *UnionFind) find(x int) int {
-	if u.parent[x] != x {
-		u.parent[x] = u.find(u.parent[x])
+	parent := u.parent[x]
+	if parent != x {
+		parent = u.find(parent)
+		u.parent[x] = parent
 	}
-	return x
+	return parent
 }
