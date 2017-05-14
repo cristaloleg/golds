@@ -34,8 +34,8 @@ func TestUnionFind(t *testing.T) {
 }
 
 func BenchmarkUnionFind(t *testing.B) {
-	uf := NewUnionFind(1000000)
-	for i := 0; i < 1000000; i += 2 {
+	uf := NewUnionFind(1000)
+	for i := 0; i < 1000; i += 2 {
 		uf.Union(i, i+1)
 	}
 }

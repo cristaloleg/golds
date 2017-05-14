@@ -35,7 +35,7 @@ func TestSparseUnionFind(t *testing.T) {
 
 func BenchmarkSparseUnionFind(t *testing.B) {
 	uf := NewSparseUnionFind()
-	for i := 0; i < 1000000; i += 2 {
+	for i := 0; i < 1000; i += 2 {
 		uf.Union(i, i+1)
 	}
 }
