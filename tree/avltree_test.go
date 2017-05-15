@@ -2,6 +2,8 @@ package tree
 
 import "testing"
 
+var x interface{}
+
 func TestAvlTree(t *testing.T) {
 	comp := func(a, b interface{}) bool {
 		return a.(int) < b.(int)
