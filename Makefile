@@ -7,7 +7,6 @@ all: install build test
 
 install:
 	go get github.com/golang/lint/golint
-	go get github.com/mattn/goveralls
 	go get golang.org/x/tools/cmd/cover
 
 build:
@@ -23,7 +22,7 @@ cover:
 	echo "" > coverage.txt
 	for d in ${PKG}; \
 		do echo "" > profile.out; \
-		go test -race -coverprofile=profile.out -covermode=atomic $$d; \
+		go test -coverprofile=profile.out -covermode=set $$d; \
 		cat profile.out >> coverage.txt; \
 		rm profile.out; \
 	done
