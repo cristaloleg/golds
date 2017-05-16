@@ -7,7 +7,6 @@ all: install build test
 
 install:
 	go get github.com/golang/lint/golint
-	go get github.com/mattn/goveralls
 	go get golang.org/x/tools/cmd/cover
 
 build:
@@ -17,7 +16,16 @@ bench:
 	go test -bench=. -benchmem ${PKG}
 
 test:
-	go test -v -cover ${PKG}
+	go test -v ${PKG}
+
+cover:
+	echo "" > coverage.txt
+	for d in ${PKG}; \
+		do echo "" > profile.out; \
+		go test -coverprofile=profile.out -covermode=set $$d; \
+		cat profile.out >> coverage.txt; \
+		rm profile.out; \
+	done
 
 fmt:
 	gofmt -l -w *.go
