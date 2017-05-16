@@ -24,6 +24,9 @@ func NewAvlTree(comp func(a, b interface{}) bool) *AvlTree {
 
 // Size X
 func (t *AvlTree) Size() int {
+	if t.root == nil {
+		return 0
+	}
 	return t.root.size
 }
 
@@ -160,53 +163,53 @@ func (t *AvlTree) has(value interface{}, node *avlNode) bool {
 }
 
 // Min X
-func (t *AvlTree) Min() interface{} {
+func (t *AvlTree) Min() (interface{}, bool) {
 	if t.root == nil {
-		return nil
+		return nil, false
 	}
 	node := t.root
 	for node.left != nil {
 		node = node.left
 	}
-	return node.value
+	return node.value, true
 }
 
 // Max X
-func (t *AvlTree) Max() interface{} {
+func (t *AvlTree) Max() (interface{}, bool) {
 	if t.root == nil {
-		return nil
+		return nil, false
 	}
 	node := t.root
 	for node.right != nil {
 		node = node.right
 	}
-	return node.value
+	return node.value, true
 }
 
 // // PopMin X
-// func (t *AvlTree) PopMin() interface{} {
+// func (t *AvlTree) PopMin() (interface{},bool) {
 // 	if t.root == nil {
-// 		return nil
+// 		return nil, false
 // 	}
 // 	node := t.root
 // 	for node.left != nil {
 // 		node = node.left
 // 	}
 // 	t.del(node.value, node)
-// 	return node.value
+// 	return node.value, true
 // }
 
 // // PopMax X
-// func (t *AvlTree) PopMax() interface{} {
+// func (t *AvlTree) PopMax() (interface{},bool) {
 // 	if t.root == nil {
-// 		return nil
+// 		return nil, false
 // 	}
 // 	node := t.root
 // 	for node.right != nil {
 // 		node = node.right
 // 	}
 // 	t.del(node.value, node)
-// 	return node.value
+// 	return node.value, true
 // }
 
 // // Del X
