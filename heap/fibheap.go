@@ -1,12 +1,13 @@
 package heap
 
-// FibHeap XXX
+// FibHeap Fibonacci Heap structure
 type FibHeap struct {
 	count int
 	min   *fibHeapNode
 	comp  func(a, b interface{}) bool
 }
 
+// fibHeapNode represents node of FibHeap
 type fibHeapNode struct {
 	value  interface{}
 	marked bool
@@ -17,7 +18,7 @@ type fibHeapNode struct {
 	child  *fibHeapNode
 }
 
-// NewFibHeap XXX
+// NewFibHeap returns a pointer to FibHeap
 func NewFibHeap(comp func(interface{}, interface{}) bool) *FibHeap {
 	h := &FibHeap{
 		comp: comp,
@@ -25,17 +26,17 @@ func NewFibHeap(comp func(interface{}, interface{}) bool) *FibHeap {
 	return h
 }
 
-// Size XXX
+// Size returns size of a heap
 func (h *FibHeap) Size() int {
 	return h.count
 }
 
-// IsEmpty XXX
+// IsEmpty returns true if heap is empty
 func (h *FibHeap) IsEmpty() bool {
 	return h.count == 0
 }
 
-// Push XXX
+// Push adds value to the heap in O(1) time
 func (h *FibHeap) Push(value interface{}) {
 	n := &fibHeapNode{
 		value: value,
@@ -44,7 +45,7 @@ func (h *FibHeap) Push(value interface{}) {
 	h.insert(n)
 }
 
-// Pop XXX
+// Pop removes top element from the heap in O(log(N)) time
 func (h *FibHeap) Pop() (value interface{}, ok bool) {
 	if h.min == nil {
 		return nil, false
@@ -74,7 +75,7 @@ func (h *FibHeap) Pop() (value interface{}, ok bool) {
 	return minNode.value, true
 }
 
-// Top XXX
+// Top returns top element from the heap in O(1) time
 func (h *FibHeap) Top() (value interface{}, ok bool) {
 	if h.min == nil {
 		return nil, false
@@ -82,6 +83,7 @@ func (h *FibHeap) Top() (value interface{}, ok bool) {
 	return h.min.value, true
 }
 
+// insert appends new node to the root list
 func (h *FibHeap) insert(x *fibHeapNode) {
 	x.parent = nil
 	x.marked = false
@@ -103,6 +105,7 @@ func (h *FibHeap) insert(x *fibHeapNode) {
 	}
 }
 
+// consolidate changes structure of the heap
 func (h *FibHeap) consolidate() {
 	nodes := make([]*fibHeapNode, h.count+1)
 
@@ -139,6 +142,7 @@ func (h *FibHeap) consolidate() {
 	}
 }
 
+// link make y child of x
 func (h *FibHeap) link(y, x *fibHeapNode) {
 	y.left.right = y.right
 	y.right.left = y.left
@@ -157,31 +161,4 @@ func (h *FibHeap) link(y, x *fibHeapNode) {
 
 	x.degree++
 	y.marked = false
-}
-
-func (h *FibHeap) cut(x, y *fibHeapNode) {
-	x.left.right = x.right
-	x.right.left = x.left
-
-	if x.right == x {
-		y.child = nil
-	} else {
-		y.child = x.right
-	}
-
-	y.degree--
-	h.insert(x)
-}
-
-func (h *FibHeap) cascadingCut(x *fibHeapNode) {
-	parent := x.parent
-	if parent == nil {
-		return
-	}
-	if !parent.marked {
-		parent.marked = true
-		return
-	}
-	h.cut(x, parent)
-	h.cascadingCut(parent)
 }
