@@ -1,6 +1,6 @@
 package tree
 
-// AvlTree X
+// AvlTree represents AVL tree
 type AvlTree struct {
 	root *avlNode
 	comp func(a, b interface{}) bool
@@ -14,7 +14,7 @@ type avlNode struct {
 	value  interface{}
 }
 
-// NewAvlTree X
+// NewAvlTree returns a pointer to the AvlTree
 func NewAvlTree(comp func(a, b interface{}) bool) *AvlTree {
 	t := &AvlTree{
 		comp: comp,
@@ -22,7 +22,7 @@ func NewAvlTree(comp func(a, b interface{}) bool) *AvlTree {
 	return t
 }
 
-// Size X
+// Size returns number of elements in the tree
 func (t *AvlTree) Size() int {
 	if t.root == nil {
 		return 0
@@ -30,17 +30,17 @@ func (t *AvlTree) Size() int {
 	return t.root.size
 }
 
-// IsEmpty X
+// IsEmpty true if tree is empty
 func (t *AvlTree) IsEmpty() bool {
 	return t.root == nil
 }
 
-// Clear X
+// Clear removes all elements from the tree
 func (t *AvlTree) Clear() {
 	t.root = nil
 }
 
-// Put X
+// Put adds element to the tree
 func (t *AvlTree) Put(value interface{}) {
 	t.root = t.put(value, t.root)
 }
@@ -130,26 +130,12 @@ func max(a, b int) int {
 	return b
 }
 
-// Has X
+// Has returns true if tree contains element
 func (t *AvlTree) Has(value interface{}) bool {
 	return t.has(value, t.root)
 }
 
 func (t *AvlTree) has(value interface{}, node *avlNode) bool {
-	// for node != nil {
-	// 	b1 := t.comp(value, node.value)
-	// 	b2 := t.comp(node.value, value)
-	// 	if !b1 && !b2 {
-	// 		return true
-	// 	}
-	// 	if b1 {
-	// 		node = node.left
-	// 	} else if b2 {
-	// 		node = node.right
-	// 	}
-	// }
-	// return false
-
 	if node == nil {
 		return false
 	}
@@ -162,7 +148,7 @@ func (t *AvlTree) has(value interface{}, node *avlNode) bool {
 	return true
 }
 
-// Min X
+// Min returns min element in O(log(N)) time
 func (t *AvlTree) Min() (interface{}, bool) {
 	if t.root == nil {
 		return nil, false
@@ -174,7 +160,7 @@ func (t *AvlTree) Min() (interface{}, bool) {
 	return node.value, true
 }
 
-// Max X
+// Max returns max element in O(log(N)) time
 func (t *AvlTree) Max() (interface{}, bool) {
 	if t.root == nil {
 		return nil, false
@@ -185,59 +171,3 @@ func (t *AvlTree) Max() (interface{}, bool) {
 	}
 	return node.value, true
 }
-
-// // PopMin X
-// func (t *AvlTree) PopMin() (interface{},bool) {
-// 	if t.root == nil {
-// 		return nil, false
-// 	}
-// 	node := t.root
-// 	for node.left != nil {
-// 		node = node.left
-// 	}
-// 	t.del(node.value, node)
-// 	return node.value, true
-// }
-
-// // PopMax X
-// func (t *AvlTree) PopMax() (interface{},bool) {
-// 	if t.root == nil {
-// 		return nil, false
-// 	}
-// 	node := t.root
-// 	for node.right != nil {
-// 		node = node.right
-// 	}
-// 	t.del(node.value, node)
-// 	return node.value, true
-// }
-
-// // Del X
-// func (t *AvlTree) Del(value interface{}) {
-// 	t.del(value, t.root)
-// }
-
-// func (t *AvlTree) del(value interface{}, node *avlNode) {
-// 	b1 := t.comp(value, node.value)
-// 	b2 := t.comp(node.value, value)
-
-// 	if b1 {
-// 		// node.left = t.del(value, node.left)
-// 	} else if b2 {
-// 		// node.right = t.del(value, node.right)
-// 	} else {
-// 		if node.left == nil {
-// 			// return node.right
-// 		} else if node.right == nil {
-// 			// return node.left
-// 		} else {
-// 			// y := node
-// 			// node = min(y.right);
-// 			// node.right = deleteMin(y.right);
-// 			// node.left = node.left
-// 		}
-// 	}
-// 	node.size = 1 + t.size(node.left) + t.size(node.right)
-// 	node.height = 1 + max(t.height(node.left), t.height(node.right))
-// 	// return t.balance(node)
-// }
