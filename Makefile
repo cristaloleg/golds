@@ -17,7 +17,16 @@ bench:
 	go test -bench=. -benchmem ${PKG}
 
 test:
-	go test -v -cover ${PKG}
+	go test -v ${PKG}
+
+cover:
+	echo "" > coverage.txt
+	for d in ${PKG}; \
+		do echo "" > profile.out; \
+		go test -race -coverprofile=profile.out -covermode=atomic $$d; \
+		cat profile.out >> coverage.txt; \
+		rm profile.out; \
+	done
 
 fmt:
 	gofmt -l -w *.go
