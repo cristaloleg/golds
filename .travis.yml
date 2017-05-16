@@ -20,7 +20,8 @@ script:
   - make test
 
 after_success:
-  - travis_retry goveralls -coverprofile=cover.out -service=travis-ci
+  - make cover
+  - travis_retry goveralls -coverprofile=coverage.txt -service=travis-ci
   - bash <(curl -s https://codecov.io/bash)
 
 notifications:
