@@ -16,6 +16,14 @@ func TestNewTopK(t *testing.T) {
 		q.Push(value)
 	}
 
+	if value, ok := q.Top(); !ok || value.(int) < 7 {
+		t.Errorf("want greater than %v, got %v", 7, value)
+	}
+
+	if value := len(q.Values()); value != 3 {
+		t.Errorf("want size %v, got %v", 3, value)
+	}
+
 	expected := []int{7, 17, 23}
 	for i := 0; i < 3; i++ {
 		if value, ok := q.Pop(); !ok || value != expected[i] {
