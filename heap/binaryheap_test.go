@@ -27,10 +27,12 @@ func TestNewHeap(t *testing.T) {
 		t.Errorf("want size 11, got %v", value)
 	}
 
-	values := h.Values()
-	sort.Slice(values, func(i, j int) bool {
-		return values[i].(int) < values[j].(int)
-	})
+	tmp := h.Values()
+	values := make([]int, len(tmp))
+	for i := 0; i < len(tmp); i++ {
+		values[i] = tmp[i].(int)
+	}
+	sort.Sort(sort.IntSlice(values))
 
 	for i := 0; i < 10; i++ {
 		if values[i] != i {
