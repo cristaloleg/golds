@@ -2,6 +2,8 @@ package misc
 
 import "testing"
 
+var xSparseUnionFind bool
+
 func TestSparseUnionFind(t *testing.T) {
 	uf := NewSparseUnionFind()
 	if uf == nil {
@@ -17,7 +19,7 @@ func TestSparseUnionFind(t *testing.T) {
 	}
 
 	for i := 1; i < 10; i += 2 {
-		uf.Union(i-1, i)
+		uf.Union(i, i-1)
 	}
 
 	if value := uf.Count(); value != 5 {
@@ -25,7 +27,10 @@ func TestSparseUnionFind(t *testing.T) {
 	}
 
 	for i := 2; i < 10; i += 2 {
-		uf.Union(i-1, i)
+		uf.Union(i, i-1)
+		if !uf.IsUnited(i, i-1) {
+			t.Errorf("%v and %v must be united", i, i-1)
+		}
 	}
 
 	if value := uf.Count(); value != 1 {
@@ -38,4 +43,17 @@ func BenchmarkSparseUnionFind(t *testing.B) {
 	for i := 0; i < 1000; i += 2 {
 		uf.Union(i, i+1)
 	}
+}
+
+func BenchmarkSparseUnionFindIsUnited(t *testing.B) {
+	uf := NewSparseUnionFind()
+	for i := 0; i < 1000; i += 2 {
+		uf.Union(i, i+1)
+	}
+	t.ResetTimer()
+	for i := 0; i < 1000; i += 2 {
+		xSparseUnionFind = uf.IsUnited(i, i+1)
+	}
+
+	t.StartTimer()
 }
