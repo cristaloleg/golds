@@ -2,6 +2,8 @@ package misc
 
 import "testing"
 
+var xUnionFind bool
+
 func TestUnionFind(t *testing.T) {
 	uf := NewUnionFind(10)
 	if uf == nil {
@@ -38,4 +40,17 @@ func BenchmarkUnionFind(t *testing.B) {
 	for i := 0; i < 1000; i += 2 {
 		uf.Union(i, i+1)
 	}
+}
+
+func BenchmarkUnionFindIsUnited(t *testing.B) {
+	uf := NewSparseUnionFind()
+	for i := 0; i < 1000; i += 2 {
+		uf.Union(i, i+1)
+	}
+	t.ResetTimer()
+	for i := 0; i < 1000; i += 2 {
+		xUnionFind = uf.IsUnited(i, i+1)
+	}
+
+	t.StartTimer()
 }
