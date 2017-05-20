@@ -18,5 +18,5 @@ type Container interface {
 // contains only one method Less, which return true
 // if an element is less than given
 type Item interface {
-	Less(than interface{}) bool
+	Less(than Item) bool
 }
