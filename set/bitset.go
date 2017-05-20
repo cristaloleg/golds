@@ -175,24 +175,6 @@ func (b *BitSet) NoneRange(i, j int) bool {
 	return true
 }
 
-// Next XXX
-func (b *BitSet) Next(i int) int {
-	return 0
-}
-
-// Prev XXX
-func (b *BitSet) Prev(i int) int {
-	return 0
-}
-
-// ShiftLeft XXX
-func (b *BitSet) ShiftLeft(i int) {
-}
-
-// ShiftRight XXX
-func (b *BitSet) ShiftRight(i int) {
-}
-
 func (b *BitSet) getIndex(i int) (int, int) {
 	return i >> 3, i & 7
 }

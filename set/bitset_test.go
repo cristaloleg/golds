@@ -76,9 +76,17 @@ func TestBulk(t *testing.T) {
 		t.Errorf("must be 4, but was %v", count)
 	}
 
+	if s.NoneBulk(2, 3, 5, 7) {
+		t.Error("must be all true")
+	}
+
 	s.UnsetBulk(2, 3, 5, 7)
 	if count := s.Count(); count != 0 {
 		t.Errorf("must be 0, but was %v", count)
+	}
+
+	if s.AnyBulk(2, 3, 5, 7) {
+		t.Error("must be all false")
 	}
 
 	s.ToggleBulk(2, 3, 5, 7)
@@ -98,9 +106,17 @@ func TestRange(t *testing.T) {
 		t.Errorf("must be 6, but was %v", count)
 	}
 
+	if s.NoneRange(2, 7) {
+		t.Error("must be all true")
+	}
+
 	s.UnsetRange(2, 7)
 	if count := s.Count(); count != 0 {
 		t.Errorf("must be 0, but was %v", count)
+	}
+
+	if s.AnyRange(2, 7) {
+		t.Error("must be all false")
 	}
 
 	s.ToggleRange(2, 7)
