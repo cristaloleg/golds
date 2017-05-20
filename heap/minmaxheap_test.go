@@ -1,6 +1,9 @@
 package heap
 
-import "testing"
+import (
+	"sort"
+	"testing"
+)
 
 func TestNewMinMaxHeap(t *testing.T) {
 	comp := func(a, b interface{}) bool {
@@ -17,6 +20,10 @@ func TestNewMinMaxHeap(t *testing.T) {
 	h.Push(-90)
 	h.Push(100)
 
+	if value := h.Size(); value != 12 {
+		t.Errorf("want size 12, got %v", value)
+	}
+
 	if value, ok := h.Min(); !ok || value != -90 {
 		t.Errorf("expected min value -90, but was %v", value)
 	}
@@ -26,6 +33,19 @@ func TestNewMinMaxHeap(t *testing.T) {
 
 	h.PopMin()
 	h.PopMax()
+
+	tmp := h.Values()
+	values := make([]int, len(tmp))
+	for i := 0; i < len(tmp); i++ {
+		values[i] = tmp[i].(int)
+	}
+	sort.Sort(sort.IntSlice(values))
+
+	for i := 0; i < 10; i++ {
+		if values[i] != i {
+			t.Errorf("want %v, got %v", i, values[i])
+		}
+	}
 
 	for i := 0; i < 10; i++ {
 		if value, ok := h.PopMin(); !ok || value != i {
