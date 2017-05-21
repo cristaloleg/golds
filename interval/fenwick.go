@@ -1,44 +1,49 @@
 package interval
 
-// FenwickTree XXX
+// FenwickTree represents Fenwick tree, aka BIT - Binary indexed tree
 type FenwickTree struct {
+	size int
 	data []int
 }
 
-// NewFenwickTree XXX
-func NewFenwickTree() *FenwickTree {
-	t := &FenwickTree{}
+// NewFenwickTree returns a pointer to the FenwickTree
+func NewFenwickTree(size int) *FenwickTree {
+	t := &FenwickTree{
+		size: size,
+		data: make([]int, size+1),
+	}
 	return t
 }
 
-// Update XXX
+// Update increases element at index by value
 func (t *FenwickTree) Update(index int, value int) {
-	size := len(t.data)
-	for ; index <= size; index |= index + 1 {
+	index++
+	for ; index <= t.size; index += index & -index {
 		t.data[index] += value
 	}
 }
 
-// Query XXX
+// Query returns sum on [0, index)
 func (t *FenwickTree) Query(index int) int {
 	res := 0
-	for ; index >= 0; index -= index & -index {
+	index++
+	for ; index > 0; index -= index & -index {
 		res += t.data[index]
 	}
 	return res
 }
 
-// QueryRange XXX
+// QueryRange returns sum in a range
 func (t *FenwickTree) QueryRange(i, j int) int {
 	return t.Query(j) - t.Query(i-1)
 }
 
-// Get XXX
+// Get returns value of element at index
 func (t *FenwickTree) Get(index int) int {
 	return t.QueryRange(index, index)
 }
 
-// Set XXX
+// Set sets a value for element at index
 func (t *FenwickTree) Set(index int, value int) {
 	t.Update(index, value-t.Get(index))
 }
