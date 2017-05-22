@@ -67,7 +67,7 @@ func (h *FibHeap) Pop() (value interface{}, ok bool) {
 	if minNode.right == minNode {
 		h.min = nil
 	} else {
-		h.min = h.min.right
+		h.min = minNode.right
 		h.consolidate()
 	}
 	h.count--
@@ -90,8 +90,8 @@ func (h *FibHeap) insert(x *fibHeapNode) {
 
 	if h.min == nil {
 		h.min = x
-		h.min.right = h.min
 		h.min.left = h.min
+		h.min.right = h.min
 		return
 	}
 
@@ -116,14 +116,10 @@ func (h *FibHeap) consolidate() {
 	}
 
 	for _, node := range rootNodes {
-		if node.parent != nil {
-			continue
-		}
-
 		d := node.degree
 		for nodes[d] != nil {
 			y := nodes[d]
-			if !h.comp(node.value, y.value) {
+			if h.comp(y.value, node.value) {
 				node, y = y, node
 			}
 			h.link(y, node)
@@ -148,13 +144,13 @@ func (h *FibHeap) link(y, x *fibHeapNode) {
 	y.right.left = y.left
 
 	if x.child == nil {
-		y.right = y
 		y.left = y
+		y.right = y
 	} else {
 		y.left = x.child.left
 		y.right = x.child
-		y.right.left = y
 		y.left.right = y
+		y.right.left = y
 	}
 	x.child = y
 	y.parent = x
