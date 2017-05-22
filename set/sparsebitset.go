@@ -85,8 +85,9 @@ func (b *SparseBitSet) Any() bool {
 func (b *SparseBitSet) None() bool {
 	return b.Count() == 0
 }
+
 func (b *SparseBitSet) getIndex(i int) (int, int) {
-	return i >> 3, i & 7
+	return i >> 8, i & 63
 }
 
 func (b *SparseBitSet) getMask(i int) uint64 {
