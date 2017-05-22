@@ -1,7 +1,16 @@
 package heap
 
-import "testing"
-import "sort"
+import (
+	"sort"
+	"testing"
+
+	"github.com/cristaloleg/golds"
+)
+
+var xBinaryHeap interface{}
+
+var _ Heap = (*BinaryHeap)(nil)
+var _ golds.Container = (*BinaryHeap)(nil)
 
 func TestNewHeap(t *testing.T) {
 	comp := func(a, b interface{}) bool {
@@ -50,4 +59,45 @@ func TestNewHeap(t *testing.T) {
 	if value, ok := h.Top(); !ok || value != 100 {
 		t.Errorf("expected 100, got %v", value)
 	}
+}
+
+func BenchmarkBinaryHeapPush(t *testing.B) {
+	comp := func(a, b interface{}) bool {
+		return a.(int) < b.(int)
+	}
+	h := NewBinaryHeap(comp)
+	if h == nil {
+		t.Error("cannot instantiate BinaryHeap")
+	}
+
+	t.ReportAllocs()
+	t.ResetTimer()
+	for i := 0; i < t.N; i++ {
+		for i := 0; i < 1000; i++ {
+			h.Push(i)
+		}
+	}
+	t.StartTimer()
+}
+
+func BenchmarkBinaryHeapPushPop(t *testing.B) {
+	comp := func(a, b interface{}) bool {
+		return a.(int) < b.(int)
+	}
+	h := NewBinaryHeap(comp)
+	if h == nil {
+		t.Error("cannot instantiate BinaryHeap")
+	}
+
+	t.ReportAllocs()
+	t.ResetTimer()
+	for i := 0; i < t.N; i++ {
+		for i := 0; i < 1000; i++ {
+			h.Push(i)
+		}
+		for i := 0; i < 1000; i++ {
+			xBinaryHeap, xBinaryHeap = h.Pop()
+		}
+	}
+	t.StartTimer()
 }

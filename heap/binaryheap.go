@@ -6,7 +6,7 @@ type BinaryHeap struct {
 	comp func(interface{}, interface{}) bool
 }
 
-// NewBinaryHeap XXX
+// NewBinaryHeap returns a pointer to the BinaryHeap
 func NewBinaryHeap(comp func(interface{}, interface{}) bool) *BinaryHeap {
 	h := &BinaryHeap{
 		data: make([]interface{}, 0),
@@ -15,9 +15,34 @@ func NewBinaryHeap(comp func(interface{}, interface{}) bool) *BinaryHeap {
 	return h
 }
 
-// Size return amount of keys in BinaryHeap
+// NewBinaryHeapSized preallocates size items
+func NewBinaryHeapSized(size int) *BinaryHeap {
+	h := &BinaryHeap{
+		data: make([]interface{}, size),
+	}
+	return h
+}
+
+// Size return amount of keys in the heap
 func (h *BinaryHeap) Size() int {
 	return len(h.data)
+}
+
+// IsEmpty returns true if heap is empty
+func (h *BinaryHeap) IsEmpty() bool {
+	return len(h.data) == 0
+}
+
+// Clear removes all elements from the heap
+func (h *BinaryHeap) Clear() {
+	h.data = nil
+}
+
+// Build pushes all items from values to the heap
+func (h *BinaryHeap) Build(values []interface{}) {
+	for v := range values {
+		h.Push(v)
+	}
 }
 
 // Push XXX
