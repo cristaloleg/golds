@@ -2,7 +2,6 @@ package interval
 
 // FenwickTree represents Fenwick tree, aka BIT - Binary indexed tree
 type FenwickTree struct {
-	size int
 	data []int
 	inv  []int
 }
@@ -10,7 +9,6 @@ type FenwickTree struct {
 // NewFenwickTree returns a pointer to the FenwickTree
 func NewFenwickTree(size int) *FenwickTree {
 	t := &FenwickTree{
-		size: size,
 		data: make([]int, size+1),
 		inv:  make([]int, size+1),
 	}
@@ -52,7 +50,7 @@ func (t *FenwickTree) Set(index int, value int) {
 
 func (t *FenwickTree) update(array *[]int, index int, value int) {
 	index++
-	for ; index <= t.size; index += index & -index {
+	for ; index < len(*array); index += index & -index {
 		(*array)[index] += value
 	}
 }
