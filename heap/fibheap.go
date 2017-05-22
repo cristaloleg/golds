@@ -36,6 +36,19 @@ func (h *FibHeap) IsEmpty() bool {
 	return h.count == 0
 }
 
+// Clear removes all elements from the FibHeap
+func (h *FibHeap) Clear() {
+	h.min = nil
+	h.count = 0
+}
+
+// Build X
+func (h *FibHeap) Build(values []interface{}) {
+	for v := range values {
+		h.Push(v)
+	}
+}
+
 // Push adds value to the heap in O(1) time
 func (h *FibHeap) Push(value interface{}) {
 	n := &fibHeapNode{
@@ -107,7 +120,7 @@ func (h *FibHeap) insert(x *fibHeapNode) {
 
 // consolidate changes structure of the heap
 func (h *FibHeap) consolidate() {
-	nodes := make([]*fibHeapNode, h.count+1)
+	nodes := make(map[int]*fibHeapNode)
 
 	rootNodes := make([]*fibHeapNode, 0)
 	rootNodes = append(rootNodes, h.min)
