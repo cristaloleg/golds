@@ -1,8 +1,16 @@
 package maps
 
-// MultiHashMap XXX
+// MultiHashMap hashmap with multiple values per key
 type MultiHashMap struct {
 	data map[interface{}][]interface{}
+}
+
+// NewMultiHashMap returns a pointer to the MultiHashMap
+func NewMultiHashMap() *MultiHashMap {
+	m := &MultiHashMap{
+		data: make(map[interface{}][]interface{}),
+	}
+	return m
 }
 
 // Put XXX
@@ -19,19 +27,19 @@ func (m *MultiHashMap) Put(key interface{}, value interface{}) {
 // Get XXX
 func (m *MultiHashMap) Get(key interface{}) (values []interface{}, ok bool) {
 	values, ok = m.data[key]
-	if !ok {
-		return nil, false
+	if ok {
+		return values, true
 	}
-	return values, true
+	return nil, false
 }
 
 // Count XXX
 func (m *MultiHashMap) Count(key interface{}) (count int, ok bool) {
 	values, ok := m.data[key]
-	if !ok {
-		return 0, false
+	if ok {
+		return len(values), true
 	}
-	return len(values), true
+	return 0, false
 }
 
 // Has XXX
