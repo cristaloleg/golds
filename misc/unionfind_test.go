@@ -28,6 +28,9 @@ func TestUnionFind(t *testing.T) {
 
 	for i := 2; i < 10; i += 2 {
 		uf.Union(i-1, i)
+		if !uf.IsUnited(i-1, i) || !uf.IsUnited(i-1, i) {
+			t.Errorf("should %v and %v be Uniond", i, i-1)
+		}
 	}
 
 	if value := uf.Count(); value != 1 {

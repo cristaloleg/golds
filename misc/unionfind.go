@@ -47,10 +47,9 @@ func (u *UnionFind) IsUnited(x, y int) bool {
 }
 
 func (u *UnionFind) find(x int) int {
-	parent := u.parent[x]
-	if parent != x {
-		parent = u.find(parent)
-		u.parent[x] = parent
+	for u.parent[x] != x {
+		x = u.parent[x]
+		u.parent[x] = x
 	}
-	return parent
+	return x
 }

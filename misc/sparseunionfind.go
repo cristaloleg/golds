@@ -57,12 +57,15 @@ func (u *SparseUnionFind) IsUnited(x, y int) bool {
 }
 
 func (u *SparseUnionFind) find(x int) int {
-	value, ok := u.parent[x]
-	if !ok {
-		return -1
+	for {
+		value, ok := u.parent[x]
+		if !ok {
+			return -1
+		}
+		if value == x {
+			return x
+		}
+		x = value
+		u.parent[x] = x
 	}
-	if value != x {
-		u.parent[x] = u.find(value)
-	}
-	return value
 }
