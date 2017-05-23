@@ -12,7 +12,7 @@ var xBinaryHeap interface{}
 var _ Heap = (*BinaryHeap)(nil)
 var _ golds.Container = (*BinaryHeap)(nil)
 
-func TestNewHeap(t *testing.T) {
+func TestBinaryHeap(t *testing.T) {
 	comp := func(a, b interface{}) bool {
 		return a.(int) < b.(int)
 	}
@@ -58,6 +58,45 @@ func TestNewHeap(t *testing.T) {
 
 	if value, ok := h.Top(); !ok || value != 100 {
 		t.Errorf("expected 100, got %v", value)
+	}
+}
+
+func TestBinaryHeapBuild(t *testing.T) {
+	comp := func(a, b interface{}) bool {
+		return a.(int) < b.(int)
+	}
+	h := NewBinaryHeapSized(10, comp)
+	if h == nil {
+		t.Error("cannot instantiate BinaryHeap")
+	}
+
+	values := make([]interface{}, 100)
+	for i := 0; i < 100; i++ {
+		if i <= 50 {
+			values[i] = i
+		} else {
+			values[i] = 100 - i
+		}
+	}
+	h.Build(values)
+
+	if value := h.Size(); value != 100 {
+		t.Errorf("expected size %v, got %v", 100, value)
+	}
+
+	h.Pop()
+
+	for i := 1; i < 50; i++ {
+		value1, ok1 := h.Pop()
+		value2, ok2 := h.Pop()
+		if !ok1 || !ok2 || value1 != i || value2 != i {
+			t.Errorf("incorrect values, expected %v, got %v and %v", i, value1, value2)
+		}
+	}
+
+	h.Clear()
+	if !h.IsEmpty() {
+		t.Errorf("should be empty")
 	}
 }
 
