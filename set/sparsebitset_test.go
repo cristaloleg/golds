@@ -2,8 +2,8 @@ package set
 
 import "testing"
 
-func TestNewSparseBitSet(t *testing.T) {
-	s := NewSparseBitSet(5)
+func TestSparseBitSet(t *testing.T) {
+	s := NewSparseBitSet()
 	if s == nil {
 		t.Error("cannot instantiate SparseBitSet")
 	}
@@ -36,7 +36,7 @@ func TestNewSparseBitSet(t *testing.T) {
 }
 
 func TestSparseAnyAndNone(t *testing.T) {
-	s := NewSparseBitSet(10)
+	s := NewSparseBitSet()
 	if s == nil {
 		t.Error("cannot instantiate SparseBitSet")
 	}
@@ -62,5 +62,40 @@ func TestSparseAnyAndNone(t *testing.T) {
 	}
 
 	s.Unset(1)
+}
 
+func TestSparseBitSetEmpty(t *testing.T) {
+	s := NewSparseBitSet()
+	if s == nil {
+		t.Error("cannot instantiate SparseBitSet")
+	}
+
+	s.Unset(10)
+	if s.Count() != 0 {
+		t.Errorf("must be empty, but have %v", s.Count())
+	}
+	if s.Get(11) {
+		t.Errorf("must be false")
+	}
+
+	s.Toggle(10)
+	s.Set(11)
+	if s.Count() != 2 {
+		t.Errorf("must be 2, but have %v", s.Count())
+	}
+
+	s.Toggle(10)
+	if s.Count() != 1 {
+		t.Errorf("must be 1, but have %v", s.Count())
+	}
+
+	s.Unset(10)
+	if s.Count() != 1 {
+		t.Errorf("must be 1, but have %v", s.Count())
+	}
+
+	s.Unset(11)
+	if s.Count() != 0 {
+		t.Errorf("must be empty, but have %v", s.Count())
+	}
 }
