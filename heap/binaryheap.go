@@ -2,6 +2,7 @@ package heap
 
 // BinaryHeap XXX
 type BinaryHeap struct {
+	size int
 	data []interface{}
 	comp func(interface{}, interface{}) bool
 }
@@ -9,94 +10,119 @@ type BinaryHeap struct {
 // NewBinaryHeap returns a pointer to the BinaryHeap
 func NewBinaryHeap(comp func(interface{}, interface{}) bool) *BinaryHeap {
 	h := &BinaryHeap{
+		size: 0,
 		data: make([]interface{}, 0),
 		comp: comp,
 	}
 	return h
 }
 
-// NewBinaryHeapSized preallocates size items
-func NewBinaryHeapSized(size int) *BinaryHeap {
+// NewBinaryHeapSized returns a pointer to the BinaryHeap
+func NewBinaryHeapSized(size int, comp func(interface{}, interface{}) bool) *BinaryHeap {
 	h := &BinaryHeap{
+		size: 0,
 		data: make([]interface{}, size),
+		comp: comp,
 	}
 	return h
 }
 
 // Size return amount of keys in the heap
 func (h *BinaryHeap) Size() int {
-	return len(h.data)
+	return h.size
 }
 
 // IsEmpty returns true if heap is empty
 func (h *BinaryHeap) IsEmpty() bool {
-	return len(h.data) == 0
+	return h.size == 0
 }
 
 // Clear removes all elements from the heap
 func (h *BinaryHeap) Clear() {
+	h.size = 0
 	h.data = nil
 }
 
 // Build pushes all items from values to the heap
 func (h *BinaryHeap) Build(values []interface{}) {
-	for v := range values {
-		h.Push(v)
+	size := len(values)
+	if len(h.data) < size {
+		h.data = make([]interface{}, size)
+	}
+	copy(h.data, values)
+	h.size = size
+	for i := h.size/2 - 1; i >= 0; i-- {
+		h.down(i)
 	}
 }
 
-// Push XXX
+// Push adds element to the heap
 func (h *BinaryHeap) Push(value interface{}) {
-	h.data = append(h.data, value)
-	if len(h.data) > 1 {
-		h.siftUp(len(h.data) - 1)
+	if len(h.data) >= h.size {
+		h.data = append(h.data, nil)
 	}
+	h.data[h.size] = value
+	h.up(h.size)
+	h.size++
 }
 
-// Pop XXX
+// Pop removes and returns top element of the heap
 func (h *BinaryHeap) Pop() (value interface{}, ok bool) {
-	size := len(h.data)
-	if size == 0 {
+	if h.size == 0 {
 		return nil, false
 	}
-	value, h.data[0] = h.data[0], h.data[size-1]
-	h.data = h.data[:size-1]
-	h.siftDown(0)
+	h.swap(0, h.size-1)
+	value = h.data[h.size-1]
+	h.data = h.data[:h.size-1]
+	h.size--
+	h.down(0)
 	return value, true
 }
 
-// Top XXX
+// Top returns top element of the heap
 func (h *BinaryHeap) Top() (value interface{}, ok bool) {
-	if len(h.data) == 0 {
+	if h.size == 0 {
 		return nil, false
 	}
 	return h.data[0], true
 }
 
-// Values XXX
+// Values returns values presented in heap
 func (h *BinaryHeap) Values() []interface{} {
-	return h.data
+	return h.data[:h.size]
 }
 
-func (h *BinaryHeap) siftDown(i int) {
-	size := len(h.data)
-	for 2*i+1 < size {
-		l, r := 2*i+1, 2*i+2
-		j := l
-		if r < size && h.comp(h.data[r], h.data[l]) {
-			j = r
+// down pushes element down in the heap-tree
+func (h *BinaryHeap) down(i int) {
+	for {
+		j := 2*i + 1
+		if j >= h.size {
+			break
+		}
+		if j2 := j + 1; j2 < h.size && h.comp(h.data[j2], h.data[j]) {
+			j = j2
 		}
 		if h.comp(h.data[i], h.data[j]) {
 			break
 		}
-		h.data[j], h.data[i] = h.data[i], h.data[j]
+		h.swap(i, j)
 		i = j
 	}
 }
 
-func (h *BinaryHeap) siftUp(i int) {
-	for h.comp(h.data[i], h.data[(i-1)/2]) {
-		h.data[(i-1)/2], h.data[i] = h.data[i], h.data[(i-1)/2]
-		i = (i - 1) / 2
+// up pushes element up in the heap-tree
+func (h *BinaryHeap) up(i int) {
+	for {
+		j := (i - 1) / 2
+		if !h.comp(h.data[i], h.data[j]) {
+			break
+		}
+		h.swap(j, i)
+		i = j
 	}
+}
+
+// swap swaps elements on the given indexes
+func (h *BinaryHeap) swap(i, j int) {
+	h.data[i], h.data[j] = h.data[j], h.data[i]
 }
