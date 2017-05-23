@@ -176,7 +176,7 @@ func (b *BitSet) NoneRange(i, j int) bool {
 }
 
 func (b *BitSet) getIndex(i int) (int, int) {
-	return i >> 8, i & 63
+	return i >> 6, i & 63
 }
 
 func (b *BitSet) getMask(i int) uint64 {
