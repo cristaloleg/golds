@@ -46,6 +46,12 @@ func TestFibHeap(t *testing.T) {
 	if !h.IsEmpty() {
 		t.Errorf("expected to be empty")
 	}
+
+	h.Clear()
+	h.Build([]interface{}{100, 50, -1024, 30, 420})
+	if value, ok := h.Top(); !ok || value != -1024 {
+		t.Errorf("expected %v, but was %v", -1024, value)
+	}
 }
 
 func TestFibHeapMultiple(t *testing.T) {

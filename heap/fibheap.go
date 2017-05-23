@@ -44,7 +44,7 @@ func (h *FibHeap) Clear() {
 
 // Build X
 func (h *FibHeap) Build(values []interface{}) {
-	for v := range values {
+	for _, v := range values {
 		h.Push(v)
 	}
 }
