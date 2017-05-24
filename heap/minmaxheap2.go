@@ -38,6 +38,13 @@ func (h *MinMaxHeap2) Push(value interface{}) {
 	h.bubbleUp(len(h.data) - 1)
 }
 
+// PushBulk adds elements to the heap
+func (h *MinMaxHeap2) PushBulk(values ...interface{}) {
+	for _, v := range values {
+		h.Push(v)
+	}
+}
+
 // Min returns min element of the heap
 func (h *MinMaxHeap2) Min() (value interface{}, ok bool) {
 	if len(h.data) == 0 {

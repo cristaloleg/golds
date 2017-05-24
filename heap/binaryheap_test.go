@@ -59,6 +59,14 @@ func TestBinaryHeap(t *testing.T) {
 	if value, ok := h.Top(); !ok || value != 100 {
 		t.Errorf("expected 100, got %v", value)
 	}
+
+	h.PushBulk(10, 20, 30)
+	for i := 1; i <= 3; i++ {
+		value, ok := h.Pop()
+		if !ok || value != i*10 {
+			t.Errorf("incorrect value, expected %v got %v", i*10, value)
+		}
+	}
 }
 
 func TestBinaryHeapBuild(t *testing.T) {
