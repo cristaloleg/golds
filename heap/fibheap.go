@@ -58,6 +58,13 @@ func (h *FibHeap) Push(value interface{}) {
 	h.insert(n)
 }
 
+// PushBulk adds elements to the heap
+func (h *FibHeap) PushBulk(values ...interface{}) {
+	for _, v := range values {
+		h.Push(v)
+	}
+}
+
 // Pop removes top element from the heap in O(log(N)) time
 func (h *FibHeap) Pop() (value interface{}, ok bool) {
 	if h.min == nil {
