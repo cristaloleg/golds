@@ -13,23 +13,19 @@ func TestNewBitSet(t *testing.T) {
 	}
 
 	s.Set(25)
-
 	if s.Count() != 1 {
 		t.Error("must be 1")
 	}
-
 	if !s.Get(25) {
 		t.Error("must be true")
 	}
 
 	s.Toggle(25)
-
 	if s.Get(25) {
 		t.Error("must be false")
 	}
 
 	s.Toggle(25)
-
 	if !s.Get(25) {
 		t.Error("must be true")
 	}
@@ -49,7 +45,6 @@ func TestAnyAndNone(t *testing.T) {
 	if s.Count() != 0 {
 		t.Errorf("must be empty, but have %v", s.Count())
 	}
-
 	if s.Any() {
 		t.Error("Any must be false")
 	}
@@ -58,7 +53,6 @@ func TestAnyAndNone(t *testing.T) {
 	}
 
 	s.Set(1)
-
 	if !s.Any() {
 		t.Error("Any must be true")
 	}
@@ -121,7 +115,6 @@ func TestRange(t *testing.T) {
 	}
 
 	s.SetRange(2, 70)
-	// s.Values(2, 70)
 	if count := s.Count(); count != 69 {
 		t.Errorf("must be 6, but was %v", count)
 	}
