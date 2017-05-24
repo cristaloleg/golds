@@ -13,23 +13,19 @@ func TestSparseBitSet(t *testing.T) {
 	}
 
 	s.Set(0)
-
 	if s.Count() != 1 {
 		t.Error("must be 1")
 	}
-
 	if !s.Get(0) {
 		t.Error("must be true")
 	}
 
 	s.Toggle(0)
-
 	if s.Get(0) {
 		t.Error("must be false")
 	}
 
 	s.Toggle(0)
-
 	if !s.Get(0) {
 		t.Error("must be true")
 	}
@@ -44,7 +40,6 @@ func TestSparseAnyAndNone(t *testing.T) {
 	if s.Count() != 0 {
 		t.Errorf("must be empty, but have %v", s.Count())
 	}
-
 	if s.Any() {
 		t.Error("Any must be false")
 	}
@@ -53,7 +48,6 @@ func TestSparseAnyAndNone(t *testing.T) {
 	}
 
 	s.Set(1)
-
 	if !s.Any() {
 		t.Error("Any must be true")
 	}
@@ -62,6 +56,12 @@ func TestSparseAnyAndNone(t *testing.T) {
 	}
 
 	s.Unset(1)
+	if s.Any() {
+		t.Error("Any must be false")
+	}
+	if !s.None() {
+		t.Error("None must be true")
+	}
 }
 
 func TestSparseBitSetEmpty(t *testing.T) {
