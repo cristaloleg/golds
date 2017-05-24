@@ -45,14 +45,14 @@ func (b *BitSet) SetRange(i, j int) {
 // Unset sets given bit to false
 func (b *BitSet) Unset(i int) {
 	x, y := b.getIndex(i)
-	b.data[x] &= b.getMaskInv(y)
+	b.data[x] &^= b.getMask(y)
 }
 
 // UnsetBulk sets given bits to false
 func (b *BitSet) UnsetBulk(indexes ...int) {
 	for _, idx := range indexes {
 		x, y := b.getIndex(idx)
-		b.data[x] &= b.getMaskInv(y)
+		b.data[x] &^= b.getMask(y)
 	}
 }
 
@@ -60,7 +60,7 @@ func (b *BitSet) UnsetBulk(indexes ...int) {
 func (b *BitSet) UnsetRange(i, j int) {
 	for idx := i; idx <= j; idx++ {
 		x, y := b.getIndex(idx)
-		b.data[x] &= b.getMaskInv(y)
+		b.data[x] &^= b.getMask(y)
 	}
 }
 
@@ -181,10 +181,6 @@ func (b *BitSet) getIndex(i int) (int, int) {
 
 func (b *BitSet) getMask(i int) uint64 {
 	return uint64(1 << uint(i))
-}
-
-func (b *BitSet) getMaskInv(i int) uint64 {
-	return ^uint64(1 << uint(i))
 }
 
 func (b *BitSet) getBits(i uint64) int {

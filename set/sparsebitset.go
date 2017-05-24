@@ -33,7 +33,7 @@ func (b *SparseBitSet) Unset(i int) {
 	if !ok {
 		return
 	}
-	value &= b.getMaskInv(y)
+	value &^= b.getMask(y)
 	if value == 0 {
 		delete(b.data, x)
 	} else {
@@ -93,10 +93,6 @@ func (b *SparseBitSet) getIndex(i int) (int, int) {
 
 func (b *SparseBitSet) getMask(i int) uint64 {
 	return uint64(1 << uint(i))
-}
-
-func (b *SparseBitSet) getMaskInv(i int) uint64 {
-	return ^uint64(1 << uint(i))
 }
 
 func (b *SparseBitSet) getBits(i uint64) int {
