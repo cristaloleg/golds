@@ -17,18 +17,28 @@ func NewMinMaxHeap2(comp func(a, b interface{}) bool) *MinMaxHeap2 {
 	return h
 }
 
-// Size return amount of keys in BinaryHeap
+// Size return amount of keys in the heap
 func (h *MinMaxHeap2) Size() int {
 	return len(h.data)
 }
 
-// Push
+// IsEmpty returns true if heap is empty
+func (h *MinMaxHeap2) IsEmpty() bool {
+	return len(h.data) == 0
+}
+
+// Clear removes all elements from the heap
+func (h *MinMaxHeap2) Clear() {
+	h.data = nil
+}
+
+// Push adds element to the heap
 func (h *MinMaxHeap2) Push(value interface{}) {
 	h.data = append(h.data, value)
 	h.bubbleUp(len(h.data) - 1)
 }
 
-// Min
+// Min returns min element of the heap
 func (h *MinMaxHeap2) Min() (value interface{}, ok bool) {
 	if len(h.data) == 0 {
 		return nil, false
@@ -36,7 +46,7 @@ func (h *MinMaxHeap2) Min() (value interface{}, ok bool) {
 	return h.data[0], true
 }
 
-// Max
+// Max returns max element of the heap
 func (h *MinMaxHeap2) Max() (value interface{}, ok bool) {
 	size := len(h.data)
 	if size == 0 {
@@ -52,11 +62,6 @@ func (h *MinMaxHeap2) Max() (value interface{}, ok bool) {
 		return h.data[2], true
 	}
 	return h.data[1], true
-}
-
-// Values
-func (h *MinMaxHeap2) Values() []interface{} {
-	return h.data
 }
 
 func (h *MinMaxHeap2) swap(i, j int) {
