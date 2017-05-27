@@ -66,6 +66,13 @@ func (h *BinaryHeap) Push(value interface{}) {
 	h.size++
 }
 
+// PushBulk adds elements to the heap
+func (h *BinaryHeap) PushBulk(values ...interface{}) {
+	for _, v := range values {
+		h.Push(v)
+	}
+}
+
 // Pop removes and returns top element of the heap
 func (h *BinaryHeap) Pop() (value interface{}, ok bool) {
 	if h.size == 0 {

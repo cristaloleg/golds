@@ -42,6 +42,13 @@ func (h *MinMaxHeap2) Push(value interface{}) {
 	h.up(h.size - 1)
 }
 
+// PushBulk adds elements to the heap
+func (h *MinMaxHeap2) PushBulk(values ...interface{}) {
+	for _, v := range values {
+		h.Push(v)
+	}
+}
+
 // PopMin removes and returns top element of the heap
 func (h *MinMaxHeap2) PopMin() (value interface{}, ok bool) {
 	if h.size == 0 {
