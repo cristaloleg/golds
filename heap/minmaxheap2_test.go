@@ -48,7 +48,7 @@ func TestNewMinMaxHeap2(t *testing.T) {
 		t.Error("expected to be empty")
 	}
 
-	h.PushBulk(10, 20, 30)
+	h.PushMany(10, 20, 30)
 	if value := h.Size(); value != 3 {
 		t.Errorf("want size %v, got %v", 3, value)
 	}

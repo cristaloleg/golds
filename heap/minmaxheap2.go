@@ -42,13 +42,8 @@ func (h *MinMaxHeap2) Push(value interface{}) {
 	h.up(h.size - 1)
 }
 
-<<<<<<< HEAD
 // PushMany adds elements to the heap
 func (h *MinMaxHeap2) PushMany(values ...interface{}) {
-=======
-// PushBulk adds elements to the heap
-func (h *MinMaxHeap2) PushBulk(values ...interface{}) {
->>>>>>> dd1126f0cef853707516bfffd2c94d67c8e00071
 	for _, v := range values {
 		h.Push(v)
 	}
