@@ -42,48 +42,60 @@ func (h *MinMaxHeap2) Push(value interface{}) {
 	h.up(h.size - 1)
 }
 
+// PushMany adds elements to the heap
+func (h *MinMaxHeap2) PushMany(values ...interface{}) {
+	for _, v := range values {
+		h.Push(v)
+	}
+}
+
 // PopMin removes and returns top element of the heap
 func (h *MinMaxHeap2) PopMin() (value interface{}, ok bool) {
 	if h.size == 0 {
 		return nil, false
 	}
-	h.swap(0, h.size-1)
-	value = h.data[h.size-1]
-	h.data = h.data[:h.size-1]
 	h.size--
+	h.swap(0, h.size)
 	h.down(0)
+	value = h.data[h.size]
+	h.data = h.data[:h.size]
 	return value, true
 }
 
-// Top returns min element of the heap
+// Pop removes and returns top element of the heap
+func (h *MinMaxHeap2) Pop() (value interface{}, ok bool) {
+	return h.PopMin()
+}
+
+// Top returns top element of the heap
 func (h *MinMaxHeap2) Top() (value interface{}, ok bool) {
+	return h.Min()
+}
+
+// Min returns min element of the heap
+func (h *MinMaxHeap2) Min() (value interface{}, ok bool) {
 	if h.size == 0 {
 		return nil, false
 	}
 	return h.data[0], true
 }
 
-// Min returns min element of the heap
-func (h *MinMaxHeap2) Min() (value interface{}, ok bool) {
-	return h.Top()
-}
-
 // Max returns max element of the heap
 func (h *MinMaxHeap2) Max() (value interface{}, ok bool) {
 	size := len(h.data)
-	if size == 0 {
+	switch {
+	case size == 0:
 		return nil, false
-	}
-	if size == 1 {
+	case size == 1:
 		return h.data[0], true
-	}
-	if size == 2 {
+	case size == 2:
+		return h.data[1], true
+	default:
+		if h.comp(h.data[1], h.data[2]) {
+			return h.data[2], true
+		}
 		return h.data[1], true
 	}
-	if h.comp(h.data[1], h.data[2]) {
-		return h.data[2], true
-	}
-	return h.data[1], true
 }
 
 func (h *MinMaxHeap2) swap(i, j int) {
