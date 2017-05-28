@@ -4,6 +4,7 @@ import "math"
 
 // MinMaxHeap2 new implementation of min-max heap
 type MinMaxHeap2 struct {
+	size int
 	data []interface{}
 	comp func(interface{}, interface{}) bool
 }
@@ -11,6 +12,7 @@ type MinMaxHeap2 struct {
 // NewMinMaxHeap2 return a pointer to the MinMaxHeap2
 func NewMinMaxHeap2(comp func(a, b interface{}) bool) *MinMaxHeap2 {
 	h := &MinMaxHeap2{
+		size: 0,
 		data: make([]interface{}, 0),
 		comp: comp,
 	}
@@ -19,35 +21,86 @@ func NewMinMaxHeap2(comp func(a, b interface{}) bool) *MinMaxHeap2 {
 
 // Size return amount of keys in the heap
 func (h *MinMaxHeap2) Size() int {
-	return len(h.data)
+	return h.size
 }
 
 // IsEmpty returns true if heap is empty
 func (h *MinMaxHeap2) IsEmpty() bool {
-	return len(h.data) == 0
+	return h.size == 0
 }
 
 // Clear removes all elements from the heap
 func (h *MinMaxHeap2) Clear() {
+	h.size = 0
 	h.data = nil
 }
 
 // Push adds element to the heap
 func (h *MinMaxHeap2) Push(value interface{}) {
+	h.size++
 	h.data = append(h.data, value)
-	h.bubbleUp(len(h.data) - 1)
+	h.up(h.size - 1)
 }
 
-// PushBulk adds elements to the heap
-func (h *MinMaxHeap2) PushBulk(values ...interface{}) {
+// PushMany adds elements to the heap
+func (h *MinMaxHeap2) PushMany(values ...interface{}) {
 	for _, v := range values {
 		h.Push(v)
 	}
 }
 
+// PopMin removes and returns top element of the heap
+func (h *MinMaxHeap2) PopMin() (value interface{}, ok bool) {
+	if h.size == 0 {
+		return nil, false
+	}
+	h.size--
+	h.swap(0, h.size)
+	h.down(0)
+	value = h.data[h.size]
+	h.data = h.data[:h.size]
+	return value, true
+}
+
+// Pop removes and returns top element of the heap
+func (h *MinMaxHeap2) Pop() (value interface{}, ok bool) {
+	return h.PopMin()
+}
+
+// PopMax removes and returns top element of the heap
+func (h *MinMaxHeap2) PopMax() (value interface{}, ok bool) {
+	idx := 0
+	switch {
+	case h.size == 0:
+		return nil, false
+	case h.size == 1:
+		idx = 0
+	case h.size == 2:
+		idx = 1
+	default:
+		if h.comp(h.data[1], h.data[2]) {
+			idx = 2
+		} else {
+			idx = 1
+		}
+	}
+
+	h.size--
+	h.swap(idx, h.size)
+	h.down(idx)
+	value = h.data[h.size]
+	h.data = h.data[:h.size]
+	return value, true
+}
+
+// Top returns top element of the heap
+func (h *MinMaxHeap2) Top() (value interface{}, ok bool) {
+	return h.Min()
+}
+
 // Min returns min element of the heap
 func (h *MinMaxHeap2) Min() (value interface{}, ok bool) {
-	if len(h.data) == 0 {
+	if h.size == 0 {
 		return nil, false
 	}
 	return h.data[0], true
@@ -55,27 +108,26 @@ func (h *MinMaxHeap2) Min() (value interface{}, ok bool) {
 
 // Max returns max element of the heap
 func (h *MinMaxHeap2) Max() (value interface{}, ok bool) {
-	size := len(h.data)
-	if size == 0 {
+	switch {
+	case h.size == 0:
 		return nil, false
-	}
-	if size == 1 {
+	case h.size == 1:
 		return h.data[0], true
-	}
-	if size == 2 {
+	case h.size == 2:
+		return h.data[1], true
+	default:
+		if h.comp(h.data[1], h.data[2]) {
+			return h.data[2], true
+		}
 		return h.data[1], true
 	}
-	if h.comp(h.data[1], h.data[2]) {
-		return h.data[2], true
-	}
-	return h.data[1], true
 }
 
 func (h *MinMaxHeap2) swap(i, j int) {
 	h.data[i], h.data[j] = h.data[j], h.data[i]
 }
 
-func (h *MinMaxHeap2) bubbleUp(index int) {
+func (h *MinMaxHeap2) up(index int) {
 	isMin := h.level(index)%2 == 0
 	parentIndex := h.parentIndex(index)
 
@@ -84,13 +136,13 @@ func (h *MinMaxHeap2) bubbleUp(index int) {
 	}
 	if isMin != h.comp(h.data[index], h.data[parentIndex]) {
 		h.swap(index, parentIndex)
-		h.bubbleUpAuxIter(parentIndex, !isMin)
+		h.upAux(parentIndex, !isMin)
 	} else {
-		h.bubbleUpAuxIter(index, isMin)
+		h.upAux(index, isMin)
 	}
 }
 
-func (h *MinMaxHeap2) bubbleUpAuxIter(index int, isMin bool) {
+func (h *MinMaxHeap2) upAux(index int, isMin bool) {
 	gpIndex := h.gpIndex(index)
 	for gpIndex != -1 {
 		if isMin != h.comp(h.data[index], h.data[gpIndex]) {
@@ -99,6 +151,59 @@ func (h *MinMaxHeap2) bubbleUpAuxIter(index int, isMin bool) {
 		h.swap(index, gpIndex)
 		index, gpIndex = gpIndex, h.gpIndex(gpIndex)
 	}
+}
+
+func (h *MinMaxHeap2) down(index int) {
+	isMin := h.level(index)%2 == 0
+	h.downAux(index, !isMin)
+}
+
+func (h *MinMaxHeap2) downAux(index int, isMin bool) {
+	child, j := index, index*2+1
+
+	if j < h.size && (h.comp(h.data[j], h.data[child]) != isMin) {
+		child = j
+	}
+	if j+1 < h.size && (h.comp(h.data[j+1], h.data[child]) != isMin) {
+		child = j + 1
+	}
+
+	jchild := j*2 + 1
+	for i := 0; i < 4 && jchild+i < h.size; i++ {
+		if h.comp(h.data[jchild+i], h.data[child]) != isMin {
+			child = jchild + i
+		}
+	}
+	if index == child {
+		return
+	}
+
+	h.swap(index, child)
+
+	if child-j <= 1 {
+		return
+	}
+	if h.comp(h.data[h.parentIndex(child)], h.data[child]) != isMin {
+		h.swap(h.parentIndex(child), child)
+	}
+	h.downAux(child, isMin)
+
+	// FIXME
+	// m := 0
+
+	// if h.parentIndex(h.parentIndex(index)) == m {
+
+	// 	if isMin == h.comp(h.data[m], h.data[index]) {
+	// 		h.swap(index, m)
+
+	// 		if isMin != h.comp(h.data[m], h.parentIndex(m)) {
+	// 			h.swap(m, h.parentIndex(m))
+	// 		}
+	// 		h.downAux(m, isMin)
+	// 	}
+	// } else if isMin == h.comp(h.data[m], h.data[index]) {
+	// 	h.swap(index, m)
+	// }
 }
 
 func (h *MinMaxHeap2) level(index int) int {
