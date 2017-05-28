@@ -52,6 +52,16 @@ func TestFibHeap(t *testing.T) {
 	if value, ok := h.Top(); !ok || value != -1024 {
 		t.Errorf("expected %v, but was %v", -1024, value)
 	}
+
+	h.Pop()
+
+	h.PushBulk(10, 20, 30)
+	for i := 1; i <= 3; i++ {
+		value, ok := h.Pop()
+		if !ok || value != i*10 {
+			t.Errorf("incorrect value, expected %v got %v", i*10, value)
+		}
+	}
 }
 
 func TestFibHeapMultiple(t *testing.T) {
