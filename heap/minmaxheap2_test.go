@@ -42,6 +42,19 @@ func TestNewMinMaxHeap2(t *testing.T) {
 	if value, ok := h.Max(); !ok || value != 100 {
 		t.Errorf("expected max value 100, but was %v", value)
 	}
+	if value, ok := h.Pop(); !ok || value != -90 {
+		t.Errorf("expected max value 10, but was %v", value)
+	}
+	if value, ok := h.PopMax(); !ok || value != 100 {
+		t.Errorf("expected max value 10, but was %v", value)
+	}
+
+	for i := 0; i < 10; i++ {
+		value, ok := h.Pop()
+		if !ok || value != i-9 {
+			t.Errorf("incorrect value, expected %v got %v", i-9, value)
+		}
+	}
 
 	h.Clear()
 	if !h.IsEmpty() {
@@ -51,5 +64,15 @@ func TestNewMinMaxHeap2(t *testing.T) {
 	h.PushMany(10, 20, 30)
 	if value := h.Size(); value != 3 {
 		t.Errorf("want size %v, got %v", 3, value)
+	}
+
+	if value, ok := h.Pop(); !ok || value != 10 {
+		t.Errorf("expected max value 10, but was %v", value)
+	}
+	if value, ok := h.PopMax(); !ok || value != 30 {
+		t.Errorf("expected max value 20, but was %v", value)
+	}
+	if value, ok := h.Pop(); !ok || value != 20 {
+		t.Errorf("expected max value 20, but was %v", value)
 	}
 }
