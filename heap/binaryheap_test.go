@@ -26,6 +26,9 @@ func TestBinaryHeap(t *testing.T) {
 	if ok1 || ok2 {
 		t.Errorf("expected to be nil")
 	}
+	if values, ok := h.PopMany(100); ok || values != nil {
+		t.Errorf("expected to be nil")
+	}
 
 	for i := 0; i < 10; i++ {
 		h.Push(i)
@@ -60,12 +63,18 @@ func TestBinaryHeap(t *testing.T) {
 		t.Errorf("expected 100, got %v", value)
 	}
 
-	h.PushBulk(10, 20, 30)
+	h.PushMany(10, 20, 30)
 	for i := 1; i <= 3; i++ {
 		value, ok := h.Pop()
 		if !ok || value != i*10 {
 			t.Errorf("incorrect value, expected %v got %v", i*10, value)
 		}
+	}
+
+	h.PushMany(10, 20)
+	values2, ok := h.PopMany(4)
+	if !ok || len(values2) != 3 {
+		t.Errorf("want size %v, got %v", 3, len(values2))
 	}
 }
 
