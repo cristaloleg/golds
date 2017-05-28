@@ -1,11 +1,11 @@
-package stack
+package list
 
 // ArrayStack XXX
 type ArrayStack struct {
 	data []interface{}
 }
 
-// NewArrayStack XXX
+// NewArrayStack returns a pointer to the ArrayStack
 func NewArrayStack() *ArrayStack {
 	s := &ArrayStack{
 		data: make([]interface{}, 0),
@@ -13,27 +13,34 @@ func NewArrayStack() *ArrayStack {
 	return s
 }
 
-// Size XXX
+// Size return amount of keys in the stack
 func (s *ArrayStack) Size() int {
 	return len(s.data)
 }
 
-// IsEmpty XXX
+// IsEmpty returns true if stack is empty
 func (s *ArrayStack) IsEmpty() bool {
 	return len(s.data) == 0
 }
 
-// Clear XXX
+// Clear removes all elements from the stack
 func (s *ArrayStack) Clear() {
 	s.data = make([]interface{}, 0)
 }
 
-// Push XXX
+// Push adds element to the top of the stack
 func (s *ArrayStack) Push(value interface{}) {
 	s.data = append(s.data, value)
 }
 
-// Pop XXX
+// PushBulk adds elements to the top of the stack
+func (s *ArrayStack) PushBulk(values ...interface{}) {
+	for _, v := range values {
+		s.Push(v)
+	}
+}
+
+// Pop removes and returns top element of the stack
 func (s *ArrayStack) Pop() (value interface{}, ok bool) {
 	size := len(s.data)
 	if size == 0 {
@@ -44,7 +51,7 @@ func (s *ArrayStack) Pop() (value interface{}, ok bool) {
 	return value, true
 }
 
-// Top XXX
+// Top returns top element of the stack
 func (s *ArrayStack) Top() (value interface{}, ok bool) {
 	size := len(s.data)
 	if size == 0 {
@@ -53,7 +60,7 @@ func (s *ArrayStack) Top() (value interface{}, ok bool) {
 	return s.data[size-1], true
 }
 
-// Values XXX
+// Values returns values presented in stack
 func (s *ArrayStack) Values() []interface{} {
 	return s.data[:]
 }

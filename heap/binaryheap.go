@@ -66,8 +66,8 @@ func (h *BinaryHeap) Push(value interface{}) {
 	h.size++
 }
 
-// PushBulk adds elements to the heap
-func (h *BinaryHeap) PushBulk(values ...interface{}) {
+// PushMany adds elements to the heap
+func (h *BinaryHeap) PushMany(values ...interface{}) {
 	for _, v := range values {
 		h.Push(v)
 	}
@@ -78,12 +78,26 @@ func (h *BinaryHeap) Pop() (value interface{}, ok bool) {
 	if h.size == 0 {
 		return nil, false
 	}
-	h.swap(0, h.size-1)
-	value = h.data[h.size-1]
-	h.data = h.data[:h.size-1]
 	h.size--
+	h.swap(0, h.size)
 	h.down(0)
+	value = h.data[h.size]
+	h.data = h.data[:h.size]
 	return value, true
+}
+
+// PopMany removes and returns top k elements of the heap
+func (h *BinaryHeap) PopMany(k int) (values []interface{}, ok bool) {
+	if h.size == 0 {
+		return nil, false
+	}
+	k = min(k, h.size)
+	values = make([]interface{}, k)
+	for i := 0; i < k; i++ {
+		value, _ := h.Pop()
+		values[i] = value
+	}
+	return values, true
 }
 
 // Top returns top element of the heap
@@ -132,4 +146,11 @@ func (h *BinaryHeap) up(i int) {
 // swap swaps elements on the given indexes
 func (h *BinaryHeap) swap(i, j int) {
 	h.data[i], h.data[j] = h.data[j], h.data[i]
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }

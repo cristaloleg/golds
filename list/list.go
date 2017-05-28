@@ -1,4 +1,4 @@
-package stack
+package list
 
 type Stack interface {
 	Push(value interface{})
