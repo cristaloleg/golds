@@ -73,5 +73,5 @@ func (s *UniqueQueue) Top() (value interface{}, ok bool) {
 
 // Values returns values presented in queue
 func (s *UniqueQueue) Values() []interface{} {
-	return s.set.Values()
+	return s.queue.Values()
 }
