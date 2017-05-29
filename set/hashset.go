@@ -16,6 +16,16 @@ func (h *HashSet) Size() int {
 	return len(h.data)
 }
 
+// IsEmpty returns true if set is empty
+func (h *HashSet) IsEmpty() bool {
+	return len(h.data) == 0
+}
+
+// Clear removes all elements from the set
+func (h *HashSet) Clear() {
+	h.data = make(map[interface{}]struct{})
+}
+
 // Put put value in a HashMap
 func (h *HashSet) Put(value interface{}) {
 	h.data[value] = struct{}{}
