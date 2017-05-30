@@ -11,7 +11,11 @@ func TestNewMinMaxHeap2(t *testing.T) {
 		t.Error("cannot instantiate MinMaxHeap2")
 	}
 
-	if value, ok := h.Min(); ok || value != nil {
+	top, ok := h.Top()
+	if ok || top != nil {
+		t.Errorf("must be empty")
+	}
+	if value, ok := h.Min(); ok || value != nil || value != top {
 		t.Errorf("must be empty")
 	}
 	if value, ok := h.Max(); ok || value != nil {
