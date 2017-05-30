@@ -161,10 +161,13 @@ func (h *MinMaxHeap2) down(index int) {
 func (h *MinMaxHeap2) downAux(index int, isMin bool) {
 	child, j := index, index*2+1
 
-	if j < h.size && (h.comp(h.data[j], h.data[child]) != isMin) {
+	if j >= h.size {
+		return
+	}
+	if j < h.size && h.comp(h.data[j], h.data[child]) != isMin {
 		child = j
 	}
-	if j+1 < h.size && (h.comp(h.data[j+1], h.data[child]) != isMin) {
+	if j+1 < h.size && h.comp(h.data[j+1], h.data[child]) != isMin {
 		child = j + 1
 	}
 
@@ -183,16 +186,30 @@ func (h *MinMaxHeap2) downAux(index int, isMin bool) {
 	if child-j <= 1 {
 		return
 	}
-	if h.comp(h.data[h.parentIndex(child)], h.data[child]) != isMin {
-		h.swap(h.parentIndex(child), child)
+	parent := h.parentIndex(child)
+	if h.comp(h.data[parent], h.data[child]) != isMin {
+		h.swap(parent, child)
 	}
 	h.downAux(child, isMin)
 
 	// FIXME
 	// m := 0
 
-	// if h.parentIndex(h.parentIndex(index)) == m {
+	// if isMin != h.comp(h.data[m], h.data[index]) {
+	// 	return
+	// }
 
+	// h.swap(index, m)
+	// if h.parentIndex(h.parentIndex(index)) != m {
+	// 	return
+	// }
+
+	// if isMin != h.comp(h.data[m], h.parentIndex(m)) {
+	// 	h.swap(m, h.parentIndex(m))
+	// }
+	// h.downAux(m, isMin)
+
+	// if h.parentIndex(h.parentIndex(index)) == m {
 	// 	if isMin == h.comp(h.data[m], h.data[index]) {
 	// 		h.swap(index, m)
 
