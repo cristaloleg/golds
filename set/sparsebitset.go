@@ -6,7 +6,7 @@ type SparseBitSet struct {
 }
 
 // NewSparseBitSet returns a pointer to new BitSet
-func NewSparseBitSet(size int) *SparseBitSet {
+func NewSparseBitSet() *SparseBitSet {
 	b := &SparseBitSet{
 		data: make(map[int]uint64),
 	}
@@ -17,10 +17,11 @@ func NewSparseBitSet(size int) *SparseBitSet {
 func (b *SparseBitSet) Set(i int) {
 	x, y := b.getIndex(i)
 	value, ok := b.data[x]
+	mask := b.getMask(y)
 	if ok {
-		value |= b.getMask(y)
+		value |= mask
 	} else {
-		value = b.getMask(y)
+		value = mask
 	}
 	b.data[x] = value
 }
@@ -32,7 +33,7 @@ func (b *SparseBitSet) Unset(i int) {
 	if !ok {
 		return
 	}
-	value &= b.getMaskInv(y)
+	value &^= b.getMask(y)
 	if value == 0 {
 		delete(b.data, x)
 	} else {
@@ -44,12 +45,12 @@ func (b *SparseBitSet) Unset(i int) {
 func (b *SparseBitSet) Toggle(i int) {
 	x, y := b.getIndex(i)
 	value, ok := b.data[x]
-	if ok {
-		value ^= b.getMask(y)
-	} else {
-		value = b.getMask(y)
+	mask := b.getMask(y)
+	if !ok {
+		b.data[x] = mask
+		return
 	}
-	value ^= b.getMaskInv(y)
+	value ^= mask
 	if value == 0 {
 		delete(b.data, x)
 	} else {
@@ -92,10 +93,6 @@ func (b *SparseBitSet) getIndex(i int) (int, int) {
 
 func (b *SparseBitSet) getMask(i int) uint64 {
 	return uint64(1 << uint(i))
-}
-
-func (b *SparseBitSet) getMaskInv(i int) uint64 {
-	return ^uint64(1 << uint(i))
 }
 
 func (b *SparseBitSet) getBits(i uint64) int {

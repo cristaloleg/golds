@@ -44,7 +44,7 @@ func (h *FibHeap) Clear() {
 
 // Build X
 func (h *FibHeap) Build(values []interface{}) {
-	for v := range values {
+	for _, v := range values {
 		h.Push(v)
 	}
 }
@@ -56,6 +56,13 @@ func (h *FibHeap) Push(value interface{}) {
 	}
 	h.count++
 	h.insert(n)
+}
+
+// PushBulk adds elements to the heap
+func (h *FibHeap) PushBulk(values ...interface{}) {
+	for _, v := range values {
+		h.Push(v)
+	}
 }
 
 // Pop removes top element from the heap in O(log(N)) time
