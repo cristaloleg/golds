@@ -4,7 +4,7 @@ import "github.com/cristaloleg/golds/heap"
 
 // PriorityQueue items sorted by a priority
 type PriorityQueue struct {
-	data heap.BinaryHeap
+	data heap.Heap
 }
 
 type priorityQueueItem struct {
@@ -18,7 +18,15 @@ func NewPriorityQueue() *PriorityQueue {
 		return a.(*priorityQueueItem).priority > b.(*priorityQueueItem).priority
 	}
 	q := &PriorityQueue{
-		data: *heap.NewBinaryHeap(comp),
+		data: heap.NewBinaryHeap(comp),
+	}
+	return q
+}
+
+// NewPriorityQueueOn returns a pointer to the PriorityQueue
+func NewPriorityQueueOn(heap heap.Heap) *PriorityQueue {
+	q := &PriorityQueue{
+		data: heap,
 	}
 	return q
 }
