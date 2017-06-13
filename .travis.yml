@@ -1,10 +1,13 @@
 language: go
 
 go:
-  - 1.6
-  - 1.7
-  - 1.8
+  - 1.6.x
+  - 1.7.x
+  - 1.8.x
   - tip
+
+git:
+  depth: 3
 
 matrix:
   allow_failures:
