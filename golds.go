@@ -14,9 +14,9 @@ type Container interface {
 	Clear()
 }
 
-// Item is an interface for comparable items
+// Comparable is an interface for comparable items
 // contains only one method Less, which return true
 // if an element is less than given
-type Item interface {
-	Less(than Item) bool
+type Comparable interface {
+	Less(Comparable) bool
 }
