@@ -1,10 +1,13 @@
-package tree
+package tree_test
 
 import "testing"
+import . "github.com/cristaloleg/golds/tree"
 
 var xAvlTest interface{}
 
 func TestAvlTree(t *testing.T) {
+	t.Parallel()
+
 	comp := func(a, b interface{}) bool {
 		return a.(int) < b.(int)
 	}
@@ -38,6 +41,8 @@ func TestAvlTree(t *testing.T) {
 }
 
 func TestAvlTreeEmpty(t *testing.T) {
+	t.Parallel()
+
 	comp := func(a, b interface{}) bool {
 		return a.(int) < b.(int)
 	}

@@ -1,8 +1,11 @@
-package heap
+package heap_test
 
 import "testing"
+import . "github.com/cristaloleg/golds/heap"
 
 func TestNewMinMaxHeap2(t *testing.T) {
+	t.Parallel()
+
 	comp := func(a, b interface{}) bool {
 		return a.(int) < b.(int)
 	}

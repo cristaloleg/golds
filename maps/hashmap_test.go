@@ -1,15 +1,18 @@
-package maps
+package maps_test
 
 import (
 	"testing"
 
 	"github.com/cristaloleg/golds"
+	. "github.com/cristaloleg/golds/maps"
 )
 
 var _ Map = (*HashMap)(nil)
 var _ golds.Container = (*HashMap)(nil)
 
 func TestHashMap(t *testing.T) {
+	t.Parallel()
+
 	m := NewHashMap()
 	if m == nil {
 		t.Error("cannot instantiate a HashMap")

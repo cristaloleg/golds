@@ -1,10 +1,13 @@
-package misc
+package misc_test
 
 import "testing"
+import . "github.com/cristaloleg/golds/misc"
 
 var xSparseUnionFind bool
 
 func TestSparseUnionFind(t *testing.T) {
+	t.Parallel()
+
 	uf := NewSparseUnionFind()
 	if uf == nil {
 		t.Error("cannot instantiate SparseUnionFind")

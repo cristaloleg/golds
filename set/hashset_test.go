@@ -1,10 +1,13 @@
-package set
+package set_test
 
 import "testing"
+import . "github.com/cristaloleg/golds/set"
 
 var _ Set = (*HashSet)(nil)
 
 func TestHashSet(t *testing.T) {
+	t.Parallel()
+
 	s := NewHashSet()
 	if s == nil {
 		t.Error("cannot instantiate a HashSet")

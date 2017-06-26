@@ -1,10 +1,13 @@
-package misc
+package misc_test
 
 import "testing"
+import . "github.com/cristaloleg/golds/misc"
 
 var xUnionFind bool
 
 func TestUnionFind(t *testing.T) {
+	t.Parallel()
+
 	uf := NewUnionFind(10)
 	if uf == nil {
 		t.Error("cannot instantiate UnionFind")

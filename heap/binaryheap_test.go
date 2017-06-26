@@ -1,10 +1,12 @@
-package heap
+package heap_test
 
 import (
 	"sort"
 	"testing"
 
 	"github.com/cristaloleg/golds"
+
+	. "github.com/cristaloleg/golds/heap"
 )
 
 var xBinaryHeap interface{}
@@ -13,6 +15,8 @@ var _ Heap = (*BinaryHeap)(nil)
 var _ golds.Container = (*BinaryHeap)(nil)
 
 func TestBinaryHeap(t *testing.T) {
+	t.Parallel()
+
 	comp := func(a, b interface{}) bool {
 		return a.(int) < b.(int)
 	}
@@ -79,6 +83,8 @@ func TestBinaryHeap(t *testing.T) {
 }
 
 func TestBinaryHeapBuild(t *testing.T) {
+	t.Parallel()
+
 	comp := func(a, b interface{}) bool {
 		return a.(int) < b.(int)
 	}

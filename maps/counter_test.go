@@ -1,8 +1,11 @@
-package maps
+package maps_test
 
 import "testing"
+import . "github.com/cristaloleg/golds/maps"
 
 func TestCounter(t *testing.T) {
+	t.Parallel()
+
 	c := NewCounter()
 	if c == nil {
 		t.Error("cannot instantiate a Counter")

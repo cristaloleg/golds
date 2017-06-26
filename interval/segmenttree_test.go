@@ -1,8 +1,11 @@
-package interval
+package interval_test
 
 import "testing"
+import . "github.com/cristaloleg/golds/interval"
 
 func TestSegmentTree(t *testing.T) {
+	t.Parallel()
+
 	s := NewSegmentTree(10)
 	if s == nil {
 		t.Error("cannot instantiate SegmentTree")
