@@ -1,8 +1,11 @@
-package interval
+package interval_test
 
 import "testing"
+import . "github.com/cristaloleg/golds/interval"
 
 func TestFenwickTree(t *testing.T) {
+	t.Parallel()
+
 	size := 10
 	f := NewFenwickTree(size)
 	if f == nil {

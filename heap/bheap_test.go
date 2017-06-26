@@ -1,7 +1,9 @@
-package heap
+package heap_test
 
 import (
 	"testing"
+
+	. "github.com/cristaloleg/golds/heap"
 )
 
 var xBHeap interface{}
@@ -11,6 +13,8 @@ var xBHeap interface{}
 // var _ golds.Container = (*BHeap)(nil)
 
 func TestBHeap(t *testing.T) {
+	t.Parallel()
+
 	comp := func(a, b interface{}) bool {
 		return a.(int) < b.(int)
 	}

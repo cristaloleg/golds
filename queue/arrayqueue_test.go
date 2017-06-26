@@ -1,14 +1,17 @@
-package queue
+package queue_test
 
 import (
 	"testing"
 
 	"github.com/cristaloleg/golds"
+	. "github.com/cristaloleg/golds/queue"
 )
 
 var _ golds.Container = (*ArrayQueue)(nil)
 
 func TestNewArrayQueue(t *testing.T) {
+	t.Parallel()
+
 	s := NewArrayQueue()
 	if s == nil {
 		t.Error("cannot instantiate ArrayQueue")

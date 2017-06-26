@@ -1,8 +1,11 @@
-package set
+package set_test
 
 import "testing"
+import . "github.com/cristaloleg/golds/set"
 
 func TestUnion(t *testing.T) {
+	t.Parallel()
+
 	a := NewHashSet()
 	b := NewHashSet()
 
@@ -24,6 +27,8 @@ func TestUnion(t *testing.T) {
 }
 
 func TestIntersection(t *testing.T) {
+	t.Parallel()
+
 	a := NewHashSet()
 	b := NewHashSet()
 
@@ -45,6 +50,8 @@ func TestIntersection(t *testing.T) {
 }
 
 func TestDifference(t *testing.T) {
+	t.Parallel()
+
 	a := NewHashSet()
 	b := NewHashSet()
 

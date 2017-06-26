@@ -1,10 +1,16 @@
-package tree
+package tree_test
 
-import "testing"
+import (
+	"testing"
+
+	. "github.com/cristaloleg/golds/tree"
+)
 
 var x interface{}
 
 func TestRedBlackTree(t *testing.T) {
+	t.Parallel()
+
 	comp := func(a, b interface{}) bool {
 		return a.(int) < b.(int)
 	}

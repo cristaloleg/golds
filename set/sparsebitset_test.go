@@ -1,6 +1,7 @@
-package set
+package set_test
 
 import "testing"
+import . "github.com/cristaloleg/golds/set"
 
 func TestSparseBitSet(t *testing.T) {
 	s := NewSparseBitSet()

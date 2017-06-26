@@ -1,8 +1,11 @@
-package queue
+package queue_test
 
 import "testing"
+import . "github.com/cristaloleg/golds/queue"
 
 func TestNewTopK(t *testing.T) {
+	t.Parallel()
+
 	comp := func(a, b interface{}) bool {
 		return a.(int) < b.(int)
 	}

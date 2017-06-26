@@ -1,8 +1,11 @@
-package set
+package set_test
 
 import "testing"
+import . "github.com/cristaloleg/golds/set"
 
 func TestNewBitSet(t *testing.T) {
+	t.Parallel()
+
 	s := NewBitSet(50)
 	if s == nil {
 		t.Error("cannot instantiate BitSet")
@@ -37,6 +40,8 @@ func TestNewBitSet(t *testing.T) {
 }
 
 func TestAnyAndNone(t *testing.T) {
+	t.Parallel()
+
 	s := NewBitSet(10)
 	if s == nil {
 		t.Error("cannot instantiate BitSet")
@@ -64,6 +69,8 @@ func TestAnyAndNone(t *testing.T) {
 }
 
 func TestBulk(t *testing.T) {
+	t.Parallel()
+
 	s := NewBitSet(10)
 	if s == nil {
 		t.Error("cannot instantiate BitSet")
@@ -109,6 +116,8 @@ func TestBulk(t *testing.T) {
 }
 
 func TestRange(t *testing.T) {
+	t.Parallel()
+
 	s := NewBitSet(10)
 	if s == nil {
 		t.Error("cannot instantiate BitSet")

@@ -1,8 +1,11 @@
-package queue
+package queue_test
 
 import "testing"
+import . "github.com/cristaloleg/golds/queue"
 
 func TestUniqueQueue(t *testing.T) {
+	t.Parallel()
+
 	q := NewUniqueQueue()
 	if q == nil {
 		t.Error("cannot instantiate UniqueQueue")

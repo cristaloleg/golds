@@ -1,7 +1,8 @@
-package heap
+package heap_test
 
 import "testing"
 import "github.com/cristaloleg/golds"
+import . "github.com/cristaloleg/golds/heap"
 
 var xFibHeap interface{}
 
@@ -9,6 +10,8 @@ var _ Heap = (*FibHeap)(nil)
 var _ golds.Container = (*FibHeap)(nil)
 
 func TestFibHeap(t *testing.T) {
+	t.Parallel()
+
 	comp := func(a, b interface{}) bool {
 		return a.(int) < b.(int)
 	}
@@ -65,6 +68,8 @@ func TestFibHeap(t *testing.T) {
 }
 
 func TestFibHeapMultiple(t *testing.T) {
+	t.Parallel()
+
 	comp := func(a, b interface{}) bool {
 		return a.(int) < b.(int)
 	}
