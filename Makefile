@@ -16,6 +16,7 @@ bench:
 	go test -bench=. -benchmem ${PKG}
 
 test:
+	diff -u <(echo -n) <(gofmt -d .)
 	go test -v ${PKG}
 
 cover:
