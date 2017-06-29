@@ -19,6 +19,7 @@ before_install:
   - make install
 
 script:
+  - diff -u <(echo -n) <(gofmt -d .)
   - make lint
   - make test
 
