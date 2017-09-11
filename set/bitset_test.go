@@ -88,29 +88,29 @@ func TestMany(t *testing.T) {
 		}
 	}
 
-	if s.NoneBulk(2, 3, 5, 70) {
+	if s.NoneMany(2, 3, 5, 70) {
 		t.Error("must be all true")
 	}
 
-	s.UnsetBulk(2, 3, 5, 70)
+	s.UnsetMany(2, 3, 5, 70)
 	if count := s.Count(); count != 0 {
 		t.Errorf("must be 0, but was %v", count)
 	}
 
-	if !s.NoneBulk(2, 3, 5, 70) {
+	if !s.NoneMany(2, 3, 5, 70) {
 		t.Error("must be all false")
 	}
 
-	if s.AnyBulk(2, 3, 5, 70) {
+	if s.AnyMany(2, 3, 5, 70) {
 		t.Error("must be all false")
 	}
 
-	s.ToggleBulk(2, 3, 5, 70)
+	s.ToggleMany(2, 3, 5, 70)
 	if count := s.Count(); count != 4 {
 		t.Errorf("must be 4, but was %v", count)
 	}
 
-	if !s.AnyBulk(2, 3, 5, 70) {
+	if !s.AnyMany(2, 3, 5, 70) {
 		t.Error("must be all true")
 	}
 }

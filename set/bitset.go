@@ -26,8 +26,8 @@ func (b *BitSet) Set(i int) {
 	b.data[x] |= b.getMask(y)
 }
 
-// SetBulk sets given bits to true
-func (b *BitSet) SetBulk(indexes ...int) {
+// SetMany sets given bits to true
+func (b *BitSet) SetMany(indexes ...int) {
 	for _, idx := range indexes {
 		x, y := b.getIndex(idx)
 		b.data[x] |= b.getMask(y)
@@ -48,8 +48,8 @@ func (b *BitSet) Unset(i int) {
 	b.data[x] &^= b.getMask(y)
 }
 
-// UnsetBulk sets given bits to false
-func (b *BitSet) UnsetBulk(indexes ...int) {
+// UnsetMany sets given bits to false
+func (b *BitSet) UnsetMany(indexes ...int) {
 	for _, idx := range indexes {
 		x, y := b.getIndex(idx)
 		b.data[x] &^= b.getMask(y)
@@ -70,8 +70,8 @@ func (b *BitSet) Get(i int) bool {
 	return (b.data[x] & b.getMask(y)) != 0
 }
 
-// GetBulk returns bit status for indexes
-func (b *BitSet) GetBulk(indexes ...int) []bool {
+// GetMany returns bit status for indexes
+func (b *BitSet) GetMany(indexes ...int) []bool {
 	res := make([]bool, len(indexes))
 	for i, idx := range indexes {
 		x, y := b.getIndex(idx)
@@ -96,8 +96,8 @@ func (b *BitSet) Toggle(i int) {
 	b.data[x] ^= b.getMask(y)
 }
 
-// ToggleBulk flips bits values
-func (b *BitSet) ToggleBulk(indexes ...int) {
+// ToggleMany flips bits values
+func (b *BitSet) ToggleMany(indexes ...int) {
 	for _, idx := range indexes {
 		x, y := b.getIndex(idx)
 		b.data[x] ^= b.getMask(y)
@@ -126,8 +126,8 @@ func (b *BitSet) Any() bool {
 	return b.Count() > 0
 }
 
-// AnyBulk returns true if at least 1 bit from indexes is true
-func (b *BitSet) AnyBulk(indexes ...int) bool {
+// AnyMany returns true if at least 1 bit from indexes is true
+func (b *BitSet) AnyMany(indexes ...int) bool {
 	for _, idx := range indexes {
 		x, y := b.getIndex(idx)
 		if (b.data[x] & b.getMask(y)) != 0 {
@@ -153,8 +153,8 @@ func (b *BitSet) None() bool {
 	return b.Count() == 0
 }
 
-// NoneBulk returns true if no bits from indexes are true
-func (b *BitSet) NoneBulk(indexes ...int) bool {
+// NoneMany returns true if no bits from indexes are true
+func (b *BitSet) NoneMany(indexes ...int) bool {
 	for _, idx := range indexes {
 		x, y := b.getIndex(idx)
 		if (b.data[x] & b.getMask(y)) != 0 {
