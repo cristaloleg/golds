@@ -51,6 +51,20 @@ func (s *ArrayStack) Pop() (value interface{}, ok bool) {
 	return value, true
 }
 
+// PopMany removes and returns top element of the stack
+func (s *ArrayStack) PopMany(k int) (values []interface{}, ok bool) {
+	if s.Size() == 0 {
+		return nil, false
+	}
+	k = min(k, s.Size())
+	values = make([]interface{}, k)
+	for i := 0; i < k; i++ {
+		value, _ := s.Pop()
+		values[i] = value
+	}
+	return values, true
+}
+
 // Top returns top element of the stack
 func (s *ArrayStack) Top() (value interface{}, ok bool) {
 	size := len(s.data)
@@ -63,4 +77,11 @@ func (s *ArrayStack) Top() (value interface{}, ok bool) {
 // Values returns values presented in stack
 func (s *ArrayStack) Values() []interface{} {
 	return s.data[:]
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
