@@ -16,14 +16,8 @@ func NewSparseBitSet() *SparseBitSet {
 // Set sets given bit to true
 func (b *SparseBitSet) Set(i int) {
 	x, y := b.getIndex(i)
-	value, ok := b.data[x]
-	mask := b.getMask(y)
-	if ok {
-		value |= mask
-	} else {
-		value = mask
-	}
-	b.data[x] = value
+	value := b.data[x]
+	b.data[x] = value | b.getMask(y)
 }
 
 // SetMany sets given bits to true
