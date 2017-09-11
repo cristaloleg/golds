@@ -26,6 +26,34 @@ func (b *SparseBitSet) Set(i int) {
 	b.data[x] = value
 }
 
+// SetMany sets given bits to true
+func (b *SparseBitSet) SetMany(indexes ...int) {
+	for _, idx := range indexes {
+		b.Set(idx)
+	}
+}
+
+// SetRange sets bits in range [i,j] to true
+func (b *SparseBitSet) SetRange(i, j int) {
+	for idx := i; idx <= j; idx++ {
+		b.Set(idx)
+	}
+}
+
+// UnsetMany sets given bits to false
+func (b *SparseBitSet) UnsetMany(indexes ...int) {
+	for _, idx := range indexes {
+		b.Unset(idx)
+	}
+}
+
+// UnsetRange sets bits in range [i,j] to false
+func (b *SparseBitSet) UnsetRange(i, j int) {
+	for idx := i; idx <= j; idx++ {
+		b.Unset(idx)
+	}
+}
+
 // Unset sets given bit to false
 func (b *SparseBitSet) Unset(i int) {
 	x, y := b.getIndex(i)
@@ -58,6 +86,20 @@ func (b *SparseBitSet) Toggle(i int) {
 	}
 }
 
+// ToggleMany flips bits values
+func (b *SparseBitSet) ToggleMany(indexes ...int) {
+	for _, idx := range indexes {
+		b.Toggle(idx)
+	}
+}
+
+// ToggleRange flips bits in range [i,j] to false
+func (b *SparseBitSet) ToggleRange(i, j int) {
+	for idx := i; idx <= j; idx++ {
+		b.Toggle(idx)
+	}
+}
+
 // Get return true if bit is true, false otherwise
 func (b *SparseBitSet) Get(i int) bool {
 	x, y := b.getIndex(i)
@@ -66,6 +108,24 @@ func (b *SparseBitSet) Get(i int) bool {
 		return false
 	}
 	return (value & b.getMask(y)) != 0
+}
+
+// GetMany returns bit status for indexes
+func (b *SparseBitSet) GetMany(indexes ...int) []bool {
+	res := make([]bool, len(indexes))
+	for i, idx := range indexes {
+		res[i] = b.Get(idx)
+	}
+	return res
+}
+
+// GetRange returns bits statuses from range [i,j]
+func (b *SparseBitSet) GetRange(i, j int) []bool {
+	res := make([]bool, j-i+1)
+	for idx := i; idx <= j; idx++ {
+		res[idx-i] = b.Get(idx)
+	}
+	return res
 }
 
 // Count returns number of true bits
