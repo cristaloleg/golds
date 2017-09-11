@@ -82,6 +82,50 @@ func (b *SparseBitSet) Any() bool {
 	return b.Count() > 0
 }
 
+//AnyMany returns true if at least 1 bit from indexes is true
+func (b *SparseBitSet) AnyMany(indexes ...int) bool {
+	for _, idx := range indexes {
+		x, y := b.getIndex(idx)
+		if (b.data[x] & b.getMask(y)) != 0 {
+			return true
+		}
+	}
+	return false
+}
+
+//AnyRange returns true if at least 1 bit from range is true
+func (b *SparseBitSet) AnyRange(i, j int) bool {
+	for idx := i; idx <= j; idx++ {
+		x, y := b.getIndex(idx)
+		if (b.data[x] & b.getMask(y)) != 0 {
+			return true
+		}
+	}
+	return false
+}
+
+//NoneMany returns true if no bits from indexes are true
+func (b *SparseBitSet) NoneMany(indexes ...int) bool {
+	for _, idx := range indexes {
+		x, y := b.getIndex(idx)
+		if (b.data[x] & b.getMask(y)) != 0 {
+			return false
+		}
+	}
+	return true
+}
+
+//NoneRange returns true if no bits in range are true
+func (b *SparseBitSet) NoneRange(i, j int) bool {
+	for idx := i; idx <= j; idx++ {
+		x, y := b.getIndex(idx)
+		if (b.data[x] & b.getMask(y)) != 0 {
+			return false
+		}
+	}
+	return true
+}
+
 // None returns true if no bits is true
 func (b *SparseBitSet) None() bool {
 	return b.Count() == 0
