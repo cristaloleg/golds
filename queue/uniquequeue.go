@@ -35,6 +35,11 @@ func (s *UniqueQueue) Clear() {
 	s.queue.Clear()
 }
 
+// Flush removes viewed elements from the queue
+func (s *UniqueQueue) Flush() {
+	s.set.Clear()
+}
+
 // Push adds element to the top of the queue
 func (s *UniqueQueue) Push(value interface{}) {
 	if s.set.Has(value) {
