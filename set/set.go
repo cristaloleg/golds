@@ -6,6 +6,15 @@ type Set interface {
 	Has(value interface{}) bool
 	Del(value interface{})
 	Values() []interface{}
+
+	// Iter() <-chan interface{}
+	// Union(s Set)
+	// Intersect(s Set)
+	// Subtract(s Set)
+	// IsSubset(s Set) bool
+	// IsSuperset(s Set) bool
+	// IsEqual(s Set) bool
+	// RemoveIf(f func(interface{}) bool)
 }
 
 // Union returns set that contains all elements of a and b
