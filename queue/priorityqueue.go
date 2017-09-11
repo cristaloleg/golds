@@ -7,7 +7,7 @@ type PriorityQueue struct {
 	data heap.BinaryHeap
 }
 
-type priorityQueueItem struct {
+type pqItem struct {
 	value    interface{}
 	priority int
 }
@@ -15,7 +15,7 @@ type priorityQueueItem struct {
 // NewPriorityQueue returns a pointer to the PriorityQueue
 func NewPriorityQueue() *PriorityQueue {
 	comp := func(a, b interface{}) bool {
-		return a.(*priorityQueueItem).priority > b.(*priorityQueueItem).priority
+		return a.(*pqItem).priority > b.(*pqItem).priority
 	}
 	q := &PriorityQueue{
 		data: *heap.NewBinaryHeap(comp),
@@ -25,7 +25,7 @@ func NewPriorityQueue() *PriorityQueue {
 
 // Push adds value with a priority to the queue
 func (q *PriorityQueue) Push(priority int, value interface{}) {
-	item := &priorityQueueItem{
+	item := &pqItem{
 		priority: priority,
 		value:    value,
 	}
@@ -38,7 +38,7 @@ func (q *PriorityQueue) Pop() (value interface{}, priority int, ok bool) {
 	if !ok {
 		return nil, 0, false
 	}
-	return value.(*priorityQueueItem).value, value.(*priorityQueueItem).priority, true
+	return value.(*pqItem).value, value.(*pqItem).priority, true
 }
 
 // Top returns item with a biggest priority in the queue
@@ -47,7 +47,7 @@ func (q *PriorityQueue) Top() (value interface{}, priority int, ok bool) {
 	if !ok {
 		return nil, 0, false
 	}
-	return value.(*priorityQueueItem).value, value.(*priorityQueueItem).priority, true
+	return value.(*pqItem).value, value.(*pqItem).priority, true
 }
 
 // Values returns all values in the queue
@@ -56,7 +56,7 @@ func (q *PriorityQueue) Values() []interface{} {
 	values := q.data.Values()
 	res := make([]interface{}, size)
 	for i := 0; i < size; i++ {
-		res[i] = values[i].(*priorityQueueItem).value
+		res[i] = values[i].(*pqItem).value
 	}
 	return res
 }
