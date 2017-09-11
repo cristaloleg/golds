@@ -1,4 +1,4 @@
-.PHONY: all build bench test fmt race cpuprof memprof 
+.PHONY: all install build bench test cover lint
 
 TIMESTAMP = $(shell date +"%Y-%m-%d_%H-%M-%S")
 PKG = $(shell go list ./... | grep -v /vendor/)
@@ -27,18 +27,6 @@ cover:
 		rm profile.out; \
 	done
 
-fmt:
-	gofmt -l -w *.go
-
 lint:
 	golint ${PKG}
 	go vet ${PKG}
-
-race:
-	go test -race ${PKG}
-
-cpuprof:
-	go test -cpuprofile cpu-${TIMESTAMP}.prof ${PKG}
-
-memprof:
-	go test -memprofile mem-${TIMESTAMP}.prof ${PKG}
