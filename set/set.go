@@ -50,3 +50,11 @@ func Difference(a, b Set) Set {
 	}
 	return res
 }
+
+func getBits(i uint64) int {
+	res := 0
+	for ; i != 0; res++ {
+		i &= i - 1
+	}
+	return res
+}

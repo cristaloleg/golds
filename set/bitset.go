@@ -116,7 +116,7 @@ func (b *BitSet) ToggleRange(i, j int) {
 func (b *BitSet) Count() int {
 	res := 0
 	for _, v := range b.data {
-		res += b.getBits(v)
+		res += getBits(v)
 	}
 	return res
 }
@@ -181,12 +181,4 @@ func (b *BitSet) getIndex(i int) (int, int) {
 
 func (b *BitSet) getMask(i int) uint64 {
 	return uint64(1 << uint(i))
-}
-
-func (b *BitSet) getBits(i uint64) int {
-	res := 0
-	for ; i != 0; res++ {
-		i &= i - 1
-	}
-	return res
 }

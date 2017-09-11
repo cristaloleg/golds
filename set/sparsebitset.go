@@ -72,7 +72,7 @@ func (b *SparseBitSet) Get(i int) bool {
 func (b *SparseBitSet) Count() int {
 	res := 0
 	for _, v := range b.data {
-		res += b.getBits(v)
+		res += getBits(v)
 	}
 	return res
 }
@@ -137,12 +137,4 @@ func (b *SparseBitSet) getIndex(i int) (int, int) {
 
 func (b *SparseBitSet) getMask(i int) uint64 {
 	return uint64(1 << uint(i))
-}
-
-func (b *SparseBitSet) getBits(i uint64) int {
-	res := 0
-	for ; i != 0; res++ {
-		i &= i - 1
-	}
-	return res
 }
