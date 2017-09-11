@@ -42,7 +42,7 @@ func TestUniqueQueue(t *testing.T) {
 
 	q.Clear()
 
-	q.PushBulk(1, 2, 2, 1, 3)
+	q.PushMany(1, 2, 2, 1, 3)
 	if value := q.Size(); value != 3 {
 		t.Errorf("want size %v, got %v", 3, value)
 	}

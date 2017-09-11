@@ -58,8 +58,8 @@ func (h *FibHeap) Push(value interface{}) {
 	h.insert(n)
 }
 
-// PushBulk adds elements to the heap
-func (h *FibHeap) PushBulk(values ...interface{}) {
+// PushMany adds elements to the heap
+func (h *FibHeap) PushMany(values ...interface{}) {
 	for _, v := range values {
 		h.Push(v)
 	}

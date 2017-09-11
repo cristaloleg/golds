@@ -68,7 +68,7 @@ func TestAnyAndNone(t *testing.T) {
 	s.Unset(1)
 }
 
-func TestBulk(t *testing.T) {
+func TestMany(t *testing.T) {
 	t.Parallel()
 
 	s := NewBitSet(10)
@@ -76,12 +76,12 @@ func TestBulk(t *testing.T) {
 		t.Error("cannot instantiate BitSet")
 	}
 
-	s.SetBulk(2, 3, 5, 70)
+	s.SetMany(2, 3, 5, 70)
 	if count := s.Count(); count != 4 {
 		t.Errorf("must be 4, but was %v", count)
 	}
 
-	bools := s.GetBulk(2, 3, 5, 70)
+	bools := s.GetMany(2, 3, 5, 70)
 	for _, b := range bools {
 		if !b {
 			t.Error("must be true")

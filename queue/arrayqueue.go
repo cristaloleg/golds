@@ -39,8 +39,8 @@ func (q *ArrayQueue) Push(value interface{}) {
 	q.data = append(q.data, value)
 }
 
-// PushBulk adds elements to the top of the queue
-func (q *ArrayQueue) PushBulk(values ...interface{}) {
+// PushMany adds elements to the top of the queue
+func (q *ArrayQueue) PushMany(values ...interface{}) {
 	for _, v := range values {
 		q.Push(v)
 	}

@@ -49,8 +49,8 @@ func (s *UniqueQueue) Push(value interface{}) {
 	s.queue.Push(value)
 }
 
-// PushBulk adds elements to the top of the queue
-func (s *UniqueQueue) PushBulk(values ...interface{}) {
+// PushMany adds elements to the top of the queue
+func (s *UniqueQueue) PushMany(values ...interface{}) {
 	for _, v := range values {
 		if !s.set.Has(v) {
 			s.set.Put(v)

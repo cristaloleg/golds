@@ -58,7 +58,7 @@ func TestFibHeap(t *testing.T) {
 
 	h.Pop()
 
-	h.PushBulk(10, 20, 30)
+	h.PushMany(10, 20, 30)
 	for i := 1; i <= 3; i++ {
 		value, ok := h.Pop()
 		if !ok || value != i*10 {

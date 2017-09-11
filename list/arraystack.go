@@ -33,8 +33,8 @@ func (s *ArrayStack) Push(value interface{}) {
 	s.data = append(s.data, value)
 }
 
-// PushBulk adds elements to the top of the stack
-func (s *ArrayStack) PushBulk(values ...interface{}) {
+// PushMany adds elements to the top of the stack
+func (s *ArrayStack) PushMany(values ...interface{}) {
 	for _, v := range values {
 		s.Push(v)
 	}
