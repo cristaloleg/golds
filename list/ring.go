@@ -36,6 +36,9 @@ func (r *Ring) Clear() {
 func (r *Ring) Push(value interface{}) {
 	r.data[r.in] = value
 	r.in = (r.in + 1) % r.size
+	if r.in == r.out {
+		r.out = (r.out + 1) % r.size
+	}
 }
 
 // Pop removes and returns top element of the ring
