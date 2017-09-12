@@ -4,14 +4,12 @@ package misc
 type SparseUnionFind struct {
 	count  int
 	parent map[int]int
-	rank   map[int]int
 }
 
 // NewSparseUnionFind returns pointer to SparseUnionFind
 func NewSparseUnionFind() *SparseUnionFind {
 	u := &SparseUnionFind{
 		parent: make(map[int]int),
-		rank:   make(map[int]int),
 	}
 	return u
 }
@@ -23,49 +21,42 @@ func (u *SparseUnionFind) Count() int {
 
 // Create creates new independent set
 func (u *SparseUnionFind) Create(x int) {
-	u.parent[x] = x
-	u.rank[x] = 0
-	u.count++
+	if !u.IsExists(x) {
+		u.parent[x] = -1
+		u.count++
+	}
 }
 
 // Union unites two sets
 func (u *SparseUnionFind) Union(x, y int) {
+	u.Create(x)
+	u.Create(y)
 	xx, yy := u.find(x), u.find(y)
-	if xx != -1 && yy != -1 && xx == yy {
+	if xx == yy {
 		return
 	}
-	if xx == -1 {
-		u.Create(x)
+	if u.parent[x] > u.parent[y] {
+		x, y = y, x
 	}
-	if yy == -1 {
-		u.Create(y)
-	}
-	if u.rank[x] < u.rank[y] {
-		u.parent[x] = y
-		u.rank[y] += u.rank[x]
-	} else {
-		u.parent[y] = x
-		u.rank[x] += u.rank[y]
-	}
+	u.parent[x] += u.parent[y]
+	u.parent[y] = x
 	u.count--
 }
 
 // IsUnited returns true if two sets are connected
 func (u *SparseUnionFind) IsUnited(x, y int) bool {
-	x, y = u.find(x), u.find(y)
-	return x != -1 && y != -1 && x == y
+	return u.IsExists(x) && u.IsExists(y) && u.find(x) == u.find(y)
+}
+
+// IsExists returns true if given element exists, false otherwise
+func (u *SparseUnionFind) IsExists(x int) bool {
+	_, ok := u.parent[x]
+	return ok
 }
 
 func (u *SparseUnionFind) find(x int) int {
-	for {
-		value, ok := u.parent[x]
-		if !ok {
-			return -1
-		}
-		if value == x {
-			return x
-		}
-		x = value
-		u.parent[x] = x
+	for u.parent[x] >= 0 {
+		x = u.parent[x]
 	}
+	return x
 }
