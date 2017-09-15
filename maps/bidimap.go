@@ -1,12 +1,12 @@
 package maps
 
-// BidiMap XXX
+// BidiMap ...
 type BidiMap struct {
 	data map[interface{}]interface{}
 	inv  map[interface{}]interface{}
 }
 
-// NewBidiMap XXX
+// NewBidiMap ...
 func NewBidiMap() *BidiMap {
 	m := &BidiMap{
 		data: make(map[interface{}]interface{}),
@@ -15,37 +15,37 @@ func NewBidiMap() *BidiMap {
 	return m
 }
 
-// Put XXX
+// Put ...
 func (m *BidiMap) Put(key interface{}, value interface{}) {
 	m.data[key] = value
 	m.inv[value] = key
 }
 
-// Get XXX
+// Get ...
 func (m *BidiMap) Get(key interface{}) (value interface{}, ok bool) {
 	value, ok = m.data[key]
 	return value, ok
 }
 
-// GetInv XXX
+// GetInv ...
 func (m *BidiMap) GetInv(value interface{}) (key interface{}, ok bool) {
 	key, ok = m.inv[value]
 	return key, ok
 }
 
-// Has XXX
+// Has ...
 func (m *BidiMap) Has(key interface{}) bool {
 	_, ok := m.data[key]
 	return ok
 }
 
-// HasInv XXX
+// HasInv ...
 func (m *BidiMap) HasInv(value interface{}) bool {
 	_, ok := m.inv[value]
 	return ok
 }
 
-// Del XXX
+// Del ...
 func (m *BidiMap) Del(key interface{}) {
 	value, ok := m.data[key]
 	if ok {
@@ -54,7 +54,7 @@ func (m *BidiMap) Del(key interface{}) {
 	}
 }
 
-// DelInv XXX
+// DelInv ...
 func (m *BidiMap) DelInv(value interface{}) {
 	key, ok := m.inv[value]
 	if ok {
@@ -63,7 +63,7 @@ func (m *BidiMap) DelInv(value interface{}) {
 	}
 }
 
-// Keys XXX
+// Keys ...
 func (m *BidiMap) Keys() []interface{} {
 	keys := make([]interface{}, len(m.data))
 	i := 0
@@ -74,7 +74,7 @@ func (m *BidiMap) Keys() []interface{} {
 	return keys
 }
 
-// Values XXX
+// Values ...
 func (m *BidiMap) Values() []interface{} {
 	values := make([]interface{}, len(m.inv))
 	i := 0

@@ -1,6 +1,6 @@
 package heap
 
-// BinaryHeap XXX
+// BinaryHeap ...
 type BinaryHeap struct {
 	size int
 	data []interface{}

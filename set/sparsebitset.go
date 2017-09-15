@@ -1,6 +1,6 @@
 package set
 
-// SparseBitSet XXX
+// SparseBitSet ...
 type SparseBitSet struct {
 	data map[int]uint64
 }

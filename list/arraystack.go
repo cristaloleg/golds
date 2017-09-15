@@ -1,6 +1,6 @@
 package list
 
-// ArrayStack XXX
+// ArrayStack ...
 type ArrayStack struct {
 	data []interface{}
 }

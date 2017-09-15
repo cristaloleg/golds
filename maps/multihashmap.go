@@ -13,7 +13,7 @@ func NewMultiHashMap() *MultiHashMap {
 	return m
 }
 
-// Put XXX
+// Put ...
 func (m *MultiHashMap) Put(key interface{}, value interface{}) {
 	values, ok := m.data[key]
 	if ok {
@@ -24,7 +24,7 @@ func (m *MultiHashMap) Put(key interface{}, value interface{}) {
 	m.data[key] = values
 }
 
-// Get XXX
+// Get ...
 func (m *MultiHashMap) Get(key interface{}) (values []interface{}, ok bool) {
 	values, ok = m.data[key]
 	if ok {
@@ -33,7 +33,7 @@ func (m *MultiHashMap) Get(key interface{}) (values []interface{}, ok bool) {
 	return nil, false
 }
 
-// Count XXX
+// Count ...
 func (m *MultiHashMap) Count(key interface{}) (count int, ok bool) {
 	values, ok := m.data[key]
 	if ok {
@@ -42,13 +42,13 @@ func (m *MultiHashMap) Count(key interface{}) (count int, ok bool) {
 	return 0, false
 }
 
-// Has XXX
+// Has ...
 func (m *MultiHashMap) Has(key interface{}) bool {
 	_, ok := m.data[key]
 	return ok
 }
 
-// HasKeyValue XXX
+// HasKeyValue ...
 func (m *MultiHashMap) HasKeyValue(key interface{}, value interface{}) bool {
 	values, ok := m.data[key]
 	if !ok {
@@ -62,12 +62,12 @@ func (m *MultiHashMap) HasKeyValue(key interface{}, value interface{}) bool {
 	return false
 }
 
-// Del XXX
+// Del ...
 func (m *MultiHashMap) Del(key interface{}) {
 	delete(m.data, key)
 }
 
-// DelKeyValue XXX
+// DelKeyValue ...
 func (m *MultiHashMap) DelKeyValue(key interface{}, value interface{}) {
 	values, ok := m.data[key]
 	if !ok {
@@ -81,7 +81,7 @@ func (m *MultiHashMap) DelKeyValue(key interface{}, value interface{}) {
 	m.data[key] = values
 }
 
-// Keys XXX
+// Keys ...
 func (m *MultiHashMap) Keys() []interface{} {
 	res := make([]interface{}, len(m.data))
 	i := 0
