@@ -121,20 +121,27 @@ func (e weightedEdge) Weight() float64 {
 
 // Graph ...
 type Graph interface {
-	Edges() int
-	Vertices() int
+	Has(Vertex) bool
+	HasE(Edge) bool
+	Connected(a, b Vertex) bool
+	EdgesOf(Vertex) []Edge
+
+	Edges() []Edge
+	Vertices() []Vertex
+
+	AddEdge(Edge)
+	DelEdge(Edge)
 }
 
 // DirectedGraph ...
 type DirectedGraph interface {
-	AddDirectedEdge(DirectedEdge)
-	HasDirectedEdge(DirectedEdge) bool
+	Graph
 	InDegree(Vertex) int
 	OutDegree(Vertex) int
 }
 
 // WeightedGraph ...
 type WeightedGraph interface {
-	AddWeightedEdge(WeightedEdge)
-	HasWeightedEdge(WeightedEdge) bool
+	Graph
+	Sum(Vertex) float64
 }
