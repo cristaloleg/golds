@@ -1,9 +1,11 @@
 package set
 
+// HashSet allows to store values
 type HashSet struct {
 	data map[interface{}]struct{}
 }
 
+// NewHashSet returns a pointer to the HashSet
 func NewHashSet() *HashSet {
 	s := &HashSet{
 		data: make(map[interface{}]struct{}),
