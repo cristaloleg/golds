@@ -131,6 +131,14 @@ type Graph interface {
 
 	AddEdge(Edge)
 	DelEdge(Edge)
+
+	Walk(Vertex, Walker) error
+}
+
+// Walker ...
+type Walker func(Edge) error
+
+type graph struct {
 }
 
 // DirectedGraph ...
