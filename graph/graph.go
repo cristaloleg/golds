@@ -145,3 +145,29 @@ type WeightedGraph interface {
 	Graph
 	Sum(Vertex) float64
 }
+
+// Type ...
+type Type int
+
+const (
+	// Simple ...
+	Simple Type = 1 << iota
+	// Loop ...
+	Loop
+	// Parallel ...
+	Parallel
+
+	// Directed ...
+	Directed
+	// Labeled ...
+	Labeled
+	// Weighted ...
+	Weighted
+)
+
+// Build ...
+func Build(t Type) Graph {
+	return nil
+}
+
+var _ Graph = Build(Simple | Loop | Parallel | Directed | Labeled | Weighted)
