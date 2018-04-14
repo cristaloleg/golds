@@ -1,16 +1,9 @@
 language: go
 
 go:
-  - 1.9.x
-  - 1.8.x
-  - tip
-
-git:
-  depth: 3
+  - 1.x
 
 matrix:
-  allow_failures:
-    - go: tip
   fast_finish: true
 
 before_install:
