@@ -19,6 +19,11 @@ func (u *SparseUnionFind) Count() int {
 	return u.count
 }
 
+// Size returns number of independent sets
+func (u *UnionFind) Size(x int) int {
+	return -u.parent[u.find(x)]
+}
+
 // Create creates new independent set
 func (u *SparseUnionFind) Create(x int) {
 	if !u.IsExists(x) {
