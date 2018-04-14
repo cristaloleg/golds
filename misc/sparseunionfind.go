@@ -20,7 +20,7 @@ func (u *SparseUnionFind) Count() int {
 }
 
 // Size returns number of independent sets
-func (u *UnionFind) Size(x int) int {
+func (u *SparseUnionFind) Size(x int) int {
 	return -u.parent[u.find(x)]
 }
 
