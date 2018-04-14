@@ -25,7 +25,7 @@ func (u *UnionFind) Count() int {
 
 // Size returns number of independent sets
 func (u *UnionFind) Size(x int) int {
-	return -u.parent[x]
+	return -u.parent[u.find(x)]
 }
 
 // Union unites two sets
