@@ -1,12 +1,12 @@
 package misc
 
-// SparseUnionFind sparse disjoint set structure
+// SparseUnionFind sparse disjoint set structure.
 type SparseUnionFind struct {
 	count  int
 	parent map[int]int
 }
 
-// NewSparseUnionFind returns pointer to SparseUnionFind
+// NewSparseUnionFind instantiates a new SparseUnionFind.
 func NewSparseUnionFind() *SparseUnionFind {
 	u := &SparseUnionFind{
 		parent: make(map[int]int),
@@ -14,17 +14,17 @@ func NewSparseUnionFind() *SparseUnionFind {
 	return u
 }
 
-// Count returns number of independent sets
+// Count returns number of independent sets.
 func (u *SparseUnionFind) Count() int {
 	return u.count
 }
 
-// Size returns number of independent sets
+// Size returns number of independent sets.
 func (u *SparseUnionFind) Size(x int) int {
 	return -u.parent[u.find(x)]
 }
 
-// Create creates new independent set
+// Create creates new independent set.
 func (u *SparseUnionFind) Create(x int) {
 	if !u.IsExists(x) {
 		u.parent[x] = -1
@@ -32,7 +32,7 @@ func (u *SparseUnionFind) Create(x int) {
 	}
 }
 
-// Union unites two sets
+// Union unites two sets.
 func (u *SparseUnionFind) Union(x, y int) {
 	u.Create(x)
 	u.Create(y)
@@ -48,17 +48,18 @@ func (u *SparseUnionFind) Union(x, y int) {
 	u.count--
 }
 
-// IsUnited returns true if two sets are connected
+// IsUnited returns true if two sets are connected.
 func (u *SparseUnionFind) IsUnited(x, y int) bool {
 	return u.IsExists(x) && u.IsExists(y) && u.find(x) == u.find(y)
 }
 
-// IsExists returns true if given element exists, false otherwise
+// IsExists returns true if given element exists, false otherwise.
 func (u *SparseUnionFind) IsExists(x int) bool {
 	_, ok := u.parent[x]
 	return ok
 }
 
+// find returns a parent of x node.
 func (u *SparseUnionFind) find(x int) int {
 	for u.parent[x] >= 0 {
 		x = u.parent[x]

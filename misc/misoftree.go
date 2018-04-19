@@ -1,9 +1,11 @@
 package misc
 
+// MisofTree represents Misof's Tree.
 type MisofTree struct {
 	data [15][1 << 15]int
 }
 
+// NewMisofTree instantiates a new MisofTree.
 func NewMisofTree(size int) *MisofTree {
 	t := &MisofTree{}
 	return t
