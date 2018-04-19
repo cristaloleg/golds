@@ -60,8 +60,9 @@ func (q *ArrayQueue) Pop() (value interface{}, ok bool) {
 func (q *ArrayQueue) Top() (value interface{}, ok bool) {
 	if q.IsEmpty() {
 		return nil, false
+	} else {
+		return q.data[q.out], true
 	}
-	return q.data[q.out], true
 }
 
 // Values returns values presented in queue
