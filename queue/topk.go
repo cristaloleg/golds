@@ -8,7 +8,7 @@ type TopK struct {
 	data heap.BinaryHeap
 }
 
-// NewTopK returns a pointer to the TopK
+// NewTopK instantiates a new TopK
 func NewTopK(k int, comp func(a, b interface{}) bool) *TopK {
 	invComp := func(a, b interface{}) bool {
 		return comp(a, b)

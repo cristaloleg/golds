@@ -12,7 +12,7 @@ type pqItem struct {
 	priority int
 }
 
-// NewPriorityQueue returns a pointer to the PriorityQueue
+// NewPriorityQueue instantiates a new PriorityQueue
 func NewPriorityQueue() *PriorityQueue {
 	comp := func(a, b interface{}) bool {
 		return a.(*pqItem).priority > b.(*pqItem).priority

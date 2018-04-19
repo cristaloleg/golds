@@ -7,7 +7,7 @@ type ArrayQueue struct {
 	data []interface{}
 }
 
-// NewArrayQueue returns a pointer to the ArrayQueue
+// NewArrayQueue instantiates a new ArrayQueue
 func NewArrayQueue() *ArrayQueue {
 	s := &ArrayQueue{
 		in:   0,

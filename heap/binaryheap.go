@@ -7,7 +7,7 @@ type BinaryHeap struct {
 	comp func(interface{}, interface{}) bool
 }
 
-// NewBinaryHeap returns a pointer to the BinaryHeap
+// NewBinaryHeap instantiates a new BinaryHeap
 func NewBinaryHeap(comp func(interface{}, interface{}) bool) *BinaryHeap {
 	h := &BinaryHeap{
 		size: 0,
@@ -17,7 +17,7 @@ func NewBinaryHeap(comp func(interface{}, interface{}) bool) *BinaryHeap {
 	return h
 }
 
-// NewBinaryHeapSized returns a pointer to the BinaryHeap
+// NewBinaryHeapSized instantiates a new BinaryHeap
 func NewBinaryHeapSized(size int, comp func(interface{}, interface{}) bool) *BinaryHeap {
 	h := &BinaryHeap{
 		size: 0,

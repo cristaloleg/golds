@@ -10,7 +10,7 @@ type UniqueQueue struct {
 	queue *ArrayQueue
 }
 
-// NewUniqueQueue returns a pointer to the UniqueQueue
+// NewUniqueQueue instantiates a new UniqueQueue
 func NewUniqueQueue() *UniqueQueue {
 	s := &UniqueQueue{
 		set:   set.NewHashSet(),

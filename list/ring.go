@@ -8,7 +8,7 @@ type Ring struct {
 	data []interface{}
 }
 
-// NewRing returns a pointer to the Ring
+// NewRing instantiates a new Ring
 func NewRing(size int) *Ring {
 	r := &Ring{
 		size: size,

@@ -5,7 +5,7 @@ type FenwickTreeSimple struct {
 	data []int
 }
 
-// NewFenwickTreeSimple returns a pointer to the FenwickTree
+// NewFenwickTreeSimple instantiates a new FenwickTree
 func NewFenwickTreeSimple(size int) *FenwickTreeSimple {
 	t := &FenwickTreeSimple{
 		data: make([]int, size+1),
