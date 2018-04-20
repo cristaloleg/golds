@@ -5,7 +5,7 @@ type ArrayStack struct {
 	data []interface{}
 }
 
-// NewArrayStack returns a pointer to the ArrayStack
+// NewArrayStack instantiates a new ArrayStack
 func NewArrayStack() *ArrayStack {
 	s := &ArrayStack{
 		data: make([]interface{}, 0),

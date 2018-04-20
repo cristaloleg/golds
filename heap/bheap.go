@@ -15,7 +15,7 @@ type BHeap struct {
 const rowShift int = 16
 const rowWidth int = 1 << uint(rowShift)
 
-// NewBHeapSized returns a pointer to the BHeap
+// NewBHeapSized instantiates a new BHeap
 func NewBHeapSized(size int, comp func(interface{}, interface{}) bool) *BHeap {
 	u := 1
 	for ; (1 << uint(u)) != size; u++ {

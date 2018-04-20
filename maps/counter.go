@@ -5,7 +5,7 @@ type Counter struct {
 	data map[interface{}]int64
 }
 
-// NewCounter returns a pointer to the Counter
+// NewCounter instantiates a new Counter
 func NewCounter() *Counter {
 	h := &Counter{
 		make(map[interface{}]int64),

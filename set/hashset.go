@@ -5,7 +5,7 @@ type HashSet struct {
 	data map[interface{}]struct{}
 }
 
-// NewHashSet returns a pointer to the HashSet
+// NewHashSet instantiates a new HashSet
 func NewHashSet() *HashSet {
 	s := &HashSet{
 		data: make(map[interface{}]struct{}),

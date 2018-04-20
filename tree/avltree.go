@@ -15,7 +15,7 @@ type avlNode struct {
 	value  interface{}
 }
 
-// NewAvlTree returns a pointer to the AvlTree
+// NewAvlTree instantiates a new AvlTree
 func NewAvlTree(comp func(a, b interface{}) bool) *AvlTree {
 	t := &AvlTree{
 		comp: comp,

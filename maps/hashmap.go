@@ -5,7 +5,7 @@ type HashMap struct {
 	data map[interface{}]interface{}
 }
 
-// NewHashMap returns a pointer to the HashMap
+// NewHashMap instantiates a new HashMap
 func NewHashMap() *HashMap {
 	h := &HashMap{
 		make(map[interface{}]interface{}),

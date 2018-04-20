@@ -5,7 +5,7 @@ type MultiHashMap struct {
 	data map[interface{}][]interface{}
 }
 
-// NewMultiHashMap returns a pointer to the MultiHashMap
+// NewMultiHashMap instantiates a new MultiHashMap
 func NewMultiHashMap() *MultiHashMap {
 	m := &MultiHashMap{
 		data: make(map[interface{}][]interface{}),
