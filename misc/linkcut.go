@@ -2,61 +2,67 @@ package misc
 
 // LinkCutTree ...
 type LinkCutTree struct {
-	root []*linkCutNode
+	nodes []*linkCutNode
 }
 
 // NewLinkCutTree ...
 func NewLinkCutTree(size int) *LinkCutTree {
 	t := &LinkCutTree{
-		root: make([]*linkCutNode, size),
+		nodes: make([]*linkCutNode, size),
 	}
-	for i := range t.root {
-		t.root[i].label = i
-		t.root[i].update()
+	for i := range t.nodes {
+		t.nodes[i].id = i
+		t.nodes[i].update()
 	}
 	return t
 }
 
 // Link ...
 func (t *LinkCutTree) Link(i, j int) {
-	t.root[i].link(t.root[j])
+	a := t.nodes[i]
+	b := t.nodes[j]
+	a.link(b)
 }
 
 // Cut ...
 func (t *LinkCutTree) Cut(i int) {
-	t.root[i].cut()
+	t.nodes[i].cut()
+}
+
+// IsConnected ...
+func (t *LinkCutTree) IsConnected(i, j int) bool {
+	a := t.nodes[i]
+	b := t.nodes[j]
+	return a.id == b.id
 }
 
 // Root ...
 func (t *LinkCutTree) Root(i int) int {
-	return t.root[i].root().label
+	return t.nodes[i].root().id
 }
 
 // Depth ...
 func (t *LinkCutTree) Depth(i int) int {
-	return t.root[i].depth()
+	return t.nodes[i].depth()
 }
 
 // LCA ...
 func (t *LinkCutTree) LCA(i, j int) int {
-	return t.root[i].lca(t.root[j]).label
+	a := t.nodes[i]
+	b := t.nodes[j]
+	return a.lca(b).id
 }
 
 type linkCutNode struct {
-	size                            int
-	label                           int
-	parent, pathParent, left, right *linkCutNode
+	id          int
+	size        int
+	parent      *linkCutNode
+	pathParent  *linkCutNode
+	left, right *linkCutNode
 }
 
 func newNode() *linkCutNode {
-	n := &linkCutNode{
-		size:       0,
-		label:      0,
-		parent:     nil,
-		pathParent: nil,
-		left:       nil,
-		right:      nil,
-	}
+	n := &linkCutNode{}
 	return n
 }
 
