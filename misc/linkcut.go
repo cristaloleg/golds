@@ -1,11 +1,11 @@
 package misc
 
-// LinkCutTree ...
+// LinkCutTree represents a Link-Cut tree.
 type LinkCutTree struct {
 	nodes []*linkCutNode
 }
 
-// NewLinkCutTree ...
+// NewLinkCutTree instantiates a new Link-Cut tree.
 func NewLinkCutTree(size int) *LinkCutTree {
 	t := &LinkCutTree{
 		nodes: make([]*linkCutNode, size),
@@ -17,36 +17,36 @@ func NewLinkCutTree(size int) *LinkCutTree {
 	return t
 }
 
-// Link ...
+// Link will link two nodes i and j.
 func (t *LinkCutTree) Link(i, j int) {
 	a := t.nodes[i]
 	b := t.nodes[j]
 	a.link(b)
 }
 
-// Cut ...
+// Cut will cut i node from others.
 func (t *LinkCutTree) Cut(i int) {
 	t.nodes[i].cut()
 }
 
-// IsConnected ...
+// IsConnected returns true whether nodes i and j are connected.
 func (t *LinkCutTree) IsConnected(i, j int) bool {
 	a := t.nodes[i]
 	b := t.nodes[j]
 	return a.id == b.id
 }
 
-// Root ...
+// Root returns a root of a node i.
 func (t *LinkCutTree) Root(i int) int {
 	return t.nodes[i].root().id
 }
 
-// Depth ...
+// Depth returns a depth of node i.
 func (t *LinkCutTree) Depth(i int) int {
 	return t.nodes[i].depth()
 }
 
-// LCA ...
+// LCA returns least common ancestor of nodes i and j.
 func (t *LinkCutTree) LCA(i, j int) int {
 	a := t.nodes[i]
 	b := t.nodes[j]
@@ -87,8 +87,8 @@ func (x *linkCutNode) rotateRight() {
 
 	x.right = y
 	y.parent = x
-
 	x.parent = z
+
 	if x.parent != nil {
 		if y == z.left {
 			z.left = x
@@ -109,10 +109,11 @@ func (x *linkCutNode) rotateLeft() {
 	if y.right != nil {
 		y.right.parent = y
 	}
+
 	x.left = y
 	y.parent = x
-
 	x.parent = z
+
 	if x.parent != nil {
 		if y == z.left {
 			z.left = x
