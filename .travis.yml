@@ -13,7 +13,7 @@ before_install:
 
 script:
   - diff -u <(echo -n) <(gofmt -d .)
-  - make lint
+  # - make lint
   - make test
 
 after_success:
