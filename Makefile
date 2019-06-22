@@ -6,8 +6,8 @@ PKG = $(shell go list ./... | grep -v /vendor/)
 all: install build test
 
 install:
-	go get github.com/golang/lint/golint
-	go get golang.org/x/tools/cmd/cover
+	# go get github.com/golang/lint/golint
+	# go get golang.org/x/tools/cmd/cover
 
 build:
 	go build ${PKG}
