@@ -1,7 +1,5 @@
 package golds
 
-const version = "0.0.0"
-
 // Container basic interface for all collections
 type Container interface {
 	// Size returns amount of elements inside a collection
@@ -14,9 +12,5 @@ type Container interface {
 	Clear()
 }
 
-// Comparable is an interface for comparable items
-// contains only one method Less, which return true
-// if an element is less than given
-type Comparable interface {
-	Less(Comparable) bool
-}
+// CmpFunc returns true if a is greater then b.
+type CmpFunc func(a, b interface{}) bool
